@@ -18,11 +18,11 @@ export const fontSizes = {
     "900": "2.8125rem", // 45px
     "700": "1.75rem", // 23px
     "500": "1.125rem", //18px
+    "300": "1rem", // 16px
     "200": "0.875rem", // 14px
   },
 };
 
-console.log(marcellus.style.fontFamily, workSans.style.fontFamily);
 export const typography = {
   fontFamilyBase: workSans.style.fontFamily,
   fontFamilyAccent: marcellus.style.fontFamily,

@@ -14,6 +14,7 @@ export interface Tokens {
   bodyLineHeight?: number | string;
   bodyFontWeight?: string | number;
   bodyTextColor?: string;
+  bodyTextColorSecondary?: string;
   bodyBackgroundColor?: string;
 
   // Link
@@ -25,23 +26,31 @@ export interface Tokens {
   // Heading
   headingFontFamilyDefault?: string;
   headingColorDefault?: string;
-  headingFontWeight?: string | number;
+  headingFontWeightDefault?: string | number;
   headingLetterSpacing?: number | string;
   headingLineHeight?: number | string;
   headingTextTransform?: string;
 
+  heading1LgFontSize?: string;
+  heading1LgColor?: string;
+  heading1LgFontFamily?: string;
+  heading1LgFontWeight?: string | number;
   heading1FontSize?: string;
   heading1Color?: string;
   heading1FontFamily?: string;
+  heading1FontWeight?: string | number;
   heading2FontSize?: string;
   heading2Color?: string;
   heading2FontFamily?: string;
+  heading2FontWeight?: string | number;
   heading3FontSize?: string;
   heading3Color?: string;
   heading3FontFamily?: string;
+  heading3FontWeight?: string | number;
   heading4FontSize?: string;
   heading4Color?: string;
   heading4FontFamily?: string;
+  heading4FontWeight?: string | number;
 
   // Layout
   gridGap?: string;
@@ -124,6 +133,8 @@ export interface Tokens {
   cardHeadingColorDefault?: string;
   cardHeadingFontFamily?: string;
   cardHeadingFontSize?: string;
+  cardDescriptionPadding?: string;
+  cardImageBorderRadius?: string;
 
   // Pricing
   priceColor?: string;
@@ -138,6 +149,11 @@ export interface Tokens {
   formLabelFontWeight?: string | number;
   formLabelFontSize?: string;
 
+  formErrorColor?: string;
+  formErrorFontFamily?: string;
+  formErrorFontWeight?: number;
+  formErrorFontSize?: string;
+
   formInputColor?: string;
   formInputFontFamily?: string;
   formInputFontWeight?: string | number;
@@ -148,6 +164,9 @@ export interface Tokens {
   formInputOutlineFocus?: string;
   formInputPadding?: string;
   formInputBorderRadius?: string;
+
+  formTextareaMinHeight?: string;
+  formTextareaResize?: string;
 
   formPlaceholderColor?: string;
   formPlaceholderFontFamily?: string;

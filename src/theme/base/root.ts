@@ -1,26 +1,30 @@
 import { css } from "styled-components";
 import { fontSizes } from "../abstracts/typography";
-import { mediaQuery } from "../utils/mediaQuery";
+import { breakpoints } from "../abstracts";
 
 export const createFontSizeProperties = () => {
-  const arr: string[] = [];
+  const fontSizeProperties: string[] = [];
   for (const [breakpoint, sizesObject] of Object.entries(fontSizes)) {
-    let thing = ``;
+    let properties = ``;
 
     for (const [sizeName, size] of Object.entries(sizesObject)) {
-      thing += `--font-size-${sizeName}: ${size};`;
+      properties += `--font-size-${sizeName}: ${size};`;
     }
 
     if (breakpoint !== "default") {
-      const thing2 = mediaQuery("md", thing);
+      const mediaQuery = `
+        @media (min-width: ${breakpoints.md}) {
+          ${properties}
+        }
+      `;
 
-      arr.push(thing2);
+      fontSizeProperties.push(mediaQuery);
     } else {
-      arr.push(thing);
+      fontSizeProperties.push(properties);
     }
   }
 
-  return arr.join("\n");
+  return fontSizeProperties.join("\n");
 };
 
 export const root = css`

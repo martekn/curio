@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { debounce } from "@/utils/debounce";
 import { useFetch } from "@/hooks/useFetch";
 import { LookAHeadContainer } from "./LookAHead";
-import { Product, ProductsFetch } from "@/types/types";
+import { Product, ProductsFetch } from "@/types";
 
 const SearchContainer = styled.div`
   ${({ theme }) => css`

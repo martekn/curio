@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-import { Product } from "@/types/types";
+import { Product } from "@/types";
 
 const LookAHead = styled.div`
   ${({ theme }) => css`

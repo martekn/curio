@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { getDiscount } from "@/utils/getDiscount";
 import mixins from "@/theme/abstracts/mixins";
 import Link from "next/link";
-import { Product } from "@/types/types";
+import { Product } from "@/types";
 
 const Container = styled.div`
   ${({ theme }) => css`
@@ -60,7 +60,7 @@ const PriceContainer = styled.div`
 const Discount = styled.span`
   ${({ theme }) => css`
     font-weight: ${theme.typography.fontWeightMedium};
-    background-color: ${theme.tokens.colorPrimary400};
+    background-color: ${theme.colors.light.primary400};
     color: ${theme.tokens.colorBackgroundDefault};
     padding: 0.05em 0.25em;
     border-radius: ${theme.tokens.cardImageBorderRadius};
@@ -79,7 +79,7 @@ const Price = styled.span`
 `;
 const PriceSale = styled.span`
   ${({ theme }) => css`
-    color: ${theme.tokens.colorPrimary400};
+    color: ${theme.colors.light.primary400};
     font-weight: ${theme.typography.fontWeightMedium};
   `}
 `;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { Product } from "@/types";
 
-const LookAHead = styled.div`
+const LookAhead = styled.div`
   ${({ theme }) => css`
     width: 100%;
     margin-top: ${theme.sizes.size2};
@@ -13,7 +13,7 @@ const LookAHead = styled.div`
     background-color: ${theme.tokens.colorBackgroundDefault};
   `}
 `;
-const LookAHeadText = styled.div`
+const LookAheadText = styled.div`
   ${({ theme }) => css`
     padding: ${theme.sizes.size3} ${theme.sizes.size7};
     font-size: ${theme.typography.fontSize200};
@@ -21,8 +21,8 @@ const LookAHeadText = styled.div`
     color: ${theme.colors.light.neutral400};
   `}
 `;
-const LookAHeadList = styled.ul``;
-const LookAHeadListItem = styled.div`
+const LookAheadList = styled.ul``;
+const LookAheadListItem = styled.div`
   ${({ theme }) => css`
     position: relative;
     display: flex;
@@ -32,7 +32,7 @@ const LookAHeadListItem = styled.div`
     padding: ${theme.sizes.size3} ${theme.sizes.size7};
   `}
 `;
-const LookAHeadListItemImage = styled.img`
+const LookAheadListItemImage = styled.img`
   ${({ theme }) => css`
     border-radius: ${theme.tokens.borderRadius};
     pointer-events: none;
@@ -41,7 +41,7 @@ const LookAHeadListItemImage = styled.img`
     object-fit: cover;
   `}
 `;
-const LookAHeadListItemTitle = styled.a`
+const LookAheadListItemTitle = styled.a`
   ${({ theme }) => css`
     color: ${theme.tokens.colorTextDefault};
     font-family: ${theme.tokens.colorTextDefault};
@@ -79,12 +79,12 @@ const LookAHeadListItemTitle = styled.a`
  * @param props - The props for the component.
  * @param props.productsSearchResult - An array of products that match the search query.
  *
- * @returns The rendered `LookAHeadContainer` with the search results.
+ * @returns The rendered `LookAheadContainer` with the search results.
  *
  * @example
- * <LookAHeadContainer productsSearchResult={matchingProducts} />
+ * <LookAheadContainer productsSearchResult={matchingProducts} />
  */
-export const LookAHeadContainer = ({ productsSearchResult }: { productsSearchResult: Product[] }) => {
+export const LookAheadContainer = ({ productsSearchResult }: { productsSearchResult: Product[] }) => {
   const [title, setTitle] = useState("Showing top 4 results");
   const [topMatches, setTopMatches] = useState<Product[]>([]);
 
@@ -102,16 +102,16 @@ export const LookAHeadContainer = ({ productsSearchResult }: { productsSearchRes
   }, [productsSearchResult]);
 
   return (
-    <LookAHead>
-      <LookAHeadText>{title}</LookAHeadText>
-      <LookAHeadList>
+    <LookAhead>
+      <LookAheadText>{title}</LookAheadText>
+      <LookAheadList>
         {topMatches.map((product) => (
-          <LookAHeadListItem key={product.id}>
-            <LookAHeadListItemImage src={product.image.url} alt={product.image.alt} />
-            <LookAHeadListItemTitle href={`/product/${product.id}`}>{product.title}</LookAHeadListItemTitle>
-          </LookAHeadListItem>
+          <LookAheadListItem key={product.id}>
+            <LookAheadListItemImage src={product.image.url} alt={product.image.alt} />
+            <LookAheadListItemTitle href={`/product/${product.id}`}>{product.title}</LookAheadListItemTitle>
+          </LookAheadListItem>
         ))}
-      </LookAHeadList>
-    </LookAHead>
+      </LookAheadList>
+    </LookAhead>
   );
 };

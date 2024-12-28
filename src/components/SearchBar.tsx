@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { debounce } from "@/utils/debounce";
 import { useFetch } from "@/hooks/useFetch";
-import { LookAHeadContainer } from "./LookAHead";
+import { LookAheadContainer } from "./LookAhead";
 import { Product, ProductsFetch } from "@/types";
 import { API_URL } from "@/constants";
 
@@ -64,7 +64,7 @@ const Form = styled.form`
 export const SearchBar = () => {
   const { data } = useFetch<ProductsFetch>(API_URL, "get");
   const [productsSearchResult, setProductsSearchResult] = useState<Product[]>([]);
-  const [showLookAHead, setShowLookAHead] = useState(false);
+  const [showLookAhead, setShowLookAhead] = useState(false);
 
   const { register, handleSubmit } = useForm<{ searchInput: string }>();
   const router = useRouter();
@@ -75,12 +75,12 @@ export const SearchBar = () => {
    *
    * @param {ChangeEvent<HTMLInputElement>} formData - The input change event containing the search term.
    */
-  const updateLookAHead = debounce((formData: ChangeEvent<HTMLInputElement>) => {
+  const updateLookAhead = debounce((formData: ChangeEvent<HTMLInputElement>) => {
     const searchTerm = formData.target.value.toLowerCase();
 
     if (!searchTerm) {
       setProductsSearchResult([]);
-      setShowLookAHead(false);
+      setShowLookAhead(false);
       return;
     }
 
@@ -88,7 +88,7 @@ export const SearchBar = () => {
     if (data && "data" in data && Array.isArray(data.data)) {
       const products = data.data;
       const matchingProducts = products.filter((product) => product.title.toLowerCase().includes(searchTerm));
-      setShowLookAHead(true);
+      setShowLookAhead(true);
       setProductsSearchResult(matchingProducts);
     }
   }, 500);
@@ -112,12 +112,12 @@ export const SearchBar = () => {
   return (
     <Form>
       <SearchContainer onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register("searchInput")} onChange={(formData) => updateLookAHead(formData)} />
+        <Input {...register("searchInput")} onChange={(formData) => updateLookAhead(formData)} />
         <Icon>
           <Search />
         </Icon>
       </SearchContainer>
-      {showLookAHead && <LookAHeadContainer productsSearchResult={productsSearchResult} />}
+      {showLookAhead && <LookAheadContainer productsSearchResult={productsSearchResult} />}
     </Form>
   );
 };

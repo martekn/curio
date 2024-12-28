@@ -32,3 +32,13 @@ export interface ProductsFetch {
   data: Product[];
   meta: APIMeta;
 }
+
+export type HTTPMethods = "put" | "patch" | "post" | "get" | "Delete";
+
+export interface RequestError {
+  errors: [
+    {
+      message: string;
+    }
+  ];
+}

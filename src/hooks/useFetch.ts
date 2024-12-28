@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
-
-type HTTPmethods = "put" | "patch" | "post" | "get" | "Delete";
-
-interface UseFetchReturn<T> {
-  data: T | undefined;
-  loading: boolean;
-  error: boolean;
-}
+import { request } from "@/utils/request";
+import { RequestError, HTTPMethods } from "@/types";
 
 /**
  * A custom hook to perform HTTP requests and manage the loading, error, and response states.
@@ -32,44 +26,29 @@ interface UseFetchReturn<T> {
  */
 export const useFetch = <T>(
   url: string,
-  method: HTTPmethods,
+  method: HTTPMethods,
   body?: BodyInit | undefined | null
-): UseFetchReturn<T> => {
-  const [data, setData] = useState<T | undefined>();
+): { data: T | RequestError | undefined; loading: boolean; error: boolean } => {
+  const [data, setData] = useState<T | RequestError>();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (url.length) {
-        setLoading(true);
-        try {
-          let response;
-          switch (method) {
-            case "get":
-              response = await fetch(url);
-              break;
-            default:
-              response = await fetch(url, {
-                method: method,
-                body,
-              });
+    const performFetch = async () => {
+      setLoading(true);
+      setError(false);
 
-              break;
-          }
-          const data: T | undefined = await response.json();
-          setData(data);
-        } catch (error) {
-          console.error(error);
-          setError(true);
-        } finally {
-          setLoading(false);
-        }
-      }
+      const result = await request<T>(url, method, body);
+
+      setData(result.data);
+      setLoading(result.loading);
+      setError(result.error);
     };
 
-    fetchData();
-  }, [body, method, url]);
+    if (url) {
+      performFetch();
+    }
+  }, [url, method, body]);
 
   return { data, loading, error };
 };

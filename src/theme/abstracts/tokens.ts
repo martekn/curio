@@ -95,12 +95,14 @@ t.footerLinkColorHover = colors.light.neutral400;
 t.footerLinkTextDecoration = "none";
 t.footerLinkTextDecorationHover = `underline ${t.footerLinkColorHover}`;
 t.siteFooterPadding = `${sizes.size9} 0`;
-t.siteFooterMargin = `${sizes.size15} 0`;
+t.siteFooterMargin = `${sizes.size15} 0 0 0`;
 
 // Logo
 t.logoFontFamily = typography.fontFamilyAccent;
 t.logoColor = colors.light.primary400;
-t.logoFontSize = typography.fontSize800;
+t.logoFontWeight = typography.fontWeightRegular;
+t.logoLgFontSize = typography.fontSize800;
+t.logoSmFontSize = typography.fontSize700;
 
 // Buttons
 t.buttonFontFamily = t.bodyFontFamily;

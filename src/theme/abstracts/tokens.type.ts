@@ -94,7 +94,9 @@ export interface Tokens {
   // Logo
   logoFontFamily?: string;
   logoColor?: string;
-  logoFontSize?: string;
+  logoFontWeight?: string | number;
+  logoLgFontSize?: string;
+  logoSmFontSize?: string;
 
   // Buttons
   buttonFontFamily?: string;

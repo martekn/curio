@@ -5,7 +5,8 @@ import { Product } from "@/types";
 const LookAHead = styled.div`
   ${({ theme }) => css`
     width: 100%;
-    border: 1px solid red;
+    margin-top: ${theme.sizes.size2};
+    border: 1px solid ${theme.colors.light.neutral300};
     z-index: 100;
     position: absolute;
     border-radius: ${theme.tokens.borderRadius};

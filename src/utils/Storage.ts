@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Creates a storage interface for the given storage API (localStorage or sessionStorage).
  *

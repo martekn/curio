@@ -65,6 +65,8 @@ export const request = async <T>(
   }
 
   if (response) {
+    error = !response.ok;
+
     data = await response.json();
   } else {
     data = {

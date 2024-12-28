@@ -28,6 +28,11 @@ export interface APIMeta {
   totalCount: number;
 }
 
+export interface ProductFetch {
+  data: Product;
+  meta: APIMeta;
+}
+
 export interface ProductsFetch {
   data: Product[];
   meta: APIMeta;

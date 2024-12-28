@@ -7,6 +7,7 @@ import { debounce } from "@/utils/debounce";
 import { useFetch } from "@/hooks/useFetch";
 import { LookAHeadContainer } from "./LookAHead";
 import { Product, ProductsFetch } from "@/types";
+import { API_URL } from "@/constants";
 
 const SearchContainer = styled.div`
   ${({ theme }) => css`
@@ -61,7 +62,7 @@ const Form = styled.form`
  * <SearchBar />
  */
 export const SearchBar = () => {
-  const { data } = useFetch<ProductsFetch>("https://v2.api.noroff.dev/online-shop", "get");
+  const { data } = useFetch<ProductsFetch>(API_URL, "get");
   const [productsSearchResult, setProductsSearchResult] = useState<Product[]>([]);
   const [showLookAHead, setShowLookAHead] = useState(false);
 

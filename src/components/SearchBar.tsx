@@ -83,7 +83,8 @@ export const SearchBar = () => {
       return;
     }
 
-    if (data) {
+    // Check if `data` exists, has a property called `data`, and that the value of `data.data` is an array
+    if (data && "data" in data && Array.isArray(data.data)) {
       const products = data.data;
       const matchingProducts = products.filter((product) => product.title.toLowerCase().includes(searchTerm));
       setShowLookAHead(true);

@@ -1,12 +1,12 @@
 import styled, { css } from "styled-components";
 import { Search } from "react-feather";
-import { ChangeEvent, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { debounce } from "@/utils/debounce";
 import { useFetch } from "@/hooks/useFetch";
 import { LookAheadContainer } from "./LookAhead";
-import { Product, ProductsFetch } from "@/types";
+import { Product, ProductsFetch, SetState } from "@/types";
 import { API_URL } from "@/constants";
 
 const SearchContainer = styled.div`
@@ -52,6 +52,35 @@ const Form = styled.form`
 `;
 
 /**
+ * Updates the look-ahead search results based on the user's input.
+ * Debounces the execution to limit how frequently it processes user input.
+ *
+ * @param searchTerm - The search term entered by the user.
+ * @param products - The list of products to search through.
+ * @param setProductsSearchResult - Function to update the state with the filtered search results.
+ * @param setShowLookAhead - Function to toggle the visibility of the look-ahead suggestions.
+ */
+const updateLookAhead = debounce(
+  (
+    searchTerm: string,
+    products: Product[],
+    setProductsSearchResult: SetState<Product[]>,
+    setShowLookAhead: SetState<boolean>
+  ) => {
+    if (!searchTerm) {
+      setProductsSearchResult([]);
+      setShowLookAhead(false);
+      return;
+    }
+
+    const matchingProducts = products.filter((product) => product.title.toLowerCase().includes(searchTerm));
+    setShowLookAhead(true);
+    setProductsSearchResult(matchingProducts);
+  },
+  500
+);
+
+/**
  * A search bar component that allows users to search products.
  * It includes a debounced look-ahead feature that displays suggestions as the user types.
  * The component also handles form submission and redirects to the search results page.
@@ -62,36 +91,22 @@ const Form = styled.form`
  * <SearchBar />
  */
 export const SearchBar = () => {
-  const { data } = useFetch<ProductsFetch>(API_URL, "get");
+  const { data, error } = useFetch<ProductsFetch>(API_URL, "get");
   const [productsSearchResult, setProductsSearchResult] = useState<Product[]>([]);
   const [showLookAhead, setShowLookAhead] = useState(false);
 
-  const { register, handleSubmit } = useForm<{ searchInput: string }>();
+  const { register, handleSubmit, watch } = useForm<{ searchInput: string }>();
   const router = useRouter();
+  const searchTerm = watch("searchInput");
 
-  /**
-   * Updates the look-ahead search results based on the user's input.
-   * Debounces the execution to limit how frequently it processes user input.
-   *
-   * @param {ChangeEvent<HTMLInputElement>} formData - The input change event containing the search term.
-   */
-  const updateLookAhead = debounce((formData: ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = formData.target.value.toLowerCase();
-
-    if (!searchTerm) {
-      setProductsSearchResult([]);
-      setShowLookAhead(false);
-      return;
+  useEffect(() => {
+    let products: Product[] = [];
+    if (!error && data && "data" in data && Array.isArray(data.data)) {
+      products = data.data;
     }
 
-    // Check if `data` exists, has a property called `data`, and that the value of `data.data` is an array
-    if (data && "data" in data && Array.isArray(data.data)) {
-      const products = data.data;
-      const matchingProducts = products.filter((product) => product.title.toLowerCase().includes(searchTerm));
-      setShowLookAhead(true);
-      setProductsSearchResult(matchingProducts);
-    }
-  }, 500);
+    updateLookAhead(searchTerm, products, setProductsSearchResult, setShowLookAhead);
+  }, [searchTerm, data, error]);
 
   /**
    * Handles the form submission for the search bar.
@@ -110,9 +125,10 @@ export const SearchBar = () => {
   };
 
   return (
-    <Form>
-      <SearchContainer onSubmit={handleSubmit(onSubmit)}>
-        <Input {...register("searchInput")} onChange={(formData) => updateLookAhead(formData)} />
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <SearchContainer>
+        <Input {...register("searchInput")} />
+        {/* <Input {...register("searchInput")} onChange={(formData) => updateLookAhead(formData)} /> */}
         <Icon>
           <Search />
         </Icon>

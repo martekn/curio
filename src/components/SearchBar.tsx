@@ -11,7 +11,8 @@ import { API_URL } from "@/constants";
 
 const SearchContainer = styled.div`
   ${({ theme }) => css`
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto;
     width: 100%;
     color: ${theme.tokens.formInputColor};
     font-family: ${theme.tokens.formInputFontFamily};
@@ -31,8 +32,8 @@ const SearchContainer = styled.div`
 `;
 
 const Input = styled.input`
+  width: 100%;
   border: none;
-  flex: 1;
 
   &:focus {
     outline: none;

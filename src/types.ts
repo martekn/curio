@@ -47,3 +47,5 @@ export interface RequestError {
     }
   ];
 }
+
+export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;

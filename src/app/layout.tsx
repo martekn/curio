@@ -1,8 +1,7 @@
 "use client";
 import StyledComponentsRegistry from "@/app/registry";
-import { ThemeProvider } from "styled-components";
 import GlobalStyle from "@/theme/GlobalStyle";
-import { defaultTheme } from "@/theme/theme";
+import { ClientProviders } from "./providers";
 
 export default function RootLayout({
   children,
@@ -14,7 +13,7 @@ export default function RootLayout({
       <body>
         <StyledComponentsRegistry>
           <GlobalStyle />
-          <ThemeProvider theme={defaultTheme}>{children}</ThemeProvider>
+          <ClientProviders>{children}</ClientProviders>
         </StyledComponentsRegistry>
       </body>
     </html>

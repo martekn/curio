@@ -8,7 +8,7 @@ const Container = styled(Link)`
   ${({ theme }) => css`
     position: relative;
     color: ${theme.colors.light.neutral900};
-    padding: 0.25em 0.5em 0 0;
+    padding: 0.25em 0.5em 0.25em 0;
     border-radius: ${theme.tokens.borderRadius};
 
     &:hover ${Quantity} {

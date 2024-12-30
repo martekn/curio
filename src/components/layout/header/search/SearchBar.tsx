@@ -129,7 +129,6 @@ export const SearchBar = () => {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <SearchContainer>
         <Input {...register("searchInput")} />
-        {/* <Input {...register("searchInput")} onChange={(formData) => updateLookAhead(formData)} /> */}
         <Icon>
           <Search />
         </Icon>

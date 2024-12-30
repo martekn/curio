@@ -67,8 +67,7 @@ export const fetchCartItemsAtom = atom(null, async (get, set) => {
       cartItems.map((item) => {
         return new Promise(async (resolve, reject) => {
           const { data, error } = await request<ProductFetch>(`${API_URL}${item.product.id}`, "get");
-
-          if (!error && data && "data" in data && Array.isArray(data.data)) {
+          if (!error && data && "data" in data) {
             const fetchedProducts = data.data;
             resolve({ ...item, product: fetchedProducts });
           }

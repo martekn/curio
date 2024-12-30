@@ -1,8 +1,14 @@
 "use client";
 import StyledComponentsRegistry from "@/app/registry";
-import GlobalStyle from "@/theme/GlobalStyle";
 import { ClientProviders } from "./providers";
+import GlobalStyle from "@/theme/GlobalStyle";
+import styled from "styled-components";
+import { SiteHeader } from "@/components/layout/header/SiteHeader";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 
+const MinHeightContainer = styled.div`
+  min-height: 100vh;
+`;
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -13,7 +19,13 @@ export default function RootLayout({
       <body>
         <StyledComponentsRegistry>
           <GlobalStyle />
-          <ClientProviders>{children}</ClientProviders>
+          <ClientProviders>
+            <MinHeightContainer>
+              <SiteHeader />
+              {children}
+            </MinHeightContainer>
+            <SiteFooter />
+          </ClientProviders>
         </StyledComponentsRegistry>
       </body>
     </html>

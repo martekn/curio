@@ -51,7 +51,13 @@ const Footnote = styled.span`
   `}
 `;
 
-export const Footer = () => {
+/**
+ * A component that renders the footer section of the site. It includes a logo, a list of footer links,
+ * and a footnote with copyright information.
+ *
+ * @returns The rendered SiteFooter component, which contains a logo, footer links, and a footnote.
+ */
+export const SiteFooter = () => {
   return (
     <FooterContainer>
       <Container>

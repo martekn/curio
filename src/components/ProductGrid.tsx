@@ -1,23 +1,8 @@
+import { Product } from "@/types";
 import styled, { css } from "styled-components";
+import { ProductCard } from "./ProductCard";
 
-/**
- * A responsive grid container for displaying products.
- * The grid adjusts based on the screen size using CSS Grid Layout.
- * It uses the theme's spacing and breakpoints to set up the layout, ensuring consistency across the application.
- *
- * On small screens, the grid will display two columns, while on medium and larger screens, it will display four columns.
- * The gap between the grid items also adjusts based on the screen size.
- *
- * This component is intended to be used as a container for product cards or similar grid items.
- *
- * @example
- * <ProductGrid>
- *   <ProductCard />
- *   <ProductCard />
- *   ...
- * </ProductGrid>
- */
-export const ProductGrid = styled.ul`
+export const StyledProductGrid = styled.ul`
   ${({ theme }) => css`
     display: grid;
     gap: ${theme.sizes.size5};
@@ -32,3 +17,27 @@ export const ProductGrid = styled.ul`
     }
   `}
 `;
+
+/**
+ * A component that renders a grid of products.
+ *
+ * This component maps through an array of `Product` objects and renders each as a `ProductCard`
+ * inside a styled grid container. Each product is wrapped in a `<li>` element, with a unique `key`
+ * based on the product's `id`.
+ *
+ * @param products - An array of `Product` objects to display in the grid.
+ * @returns A styled grid containing product cards.
+ */
+export const ProductGrid = ({ products }: { products: Product[] | undefined }) => {
+  if (products) {
+    return (
+      <StyledProductGrid>
+        {products.map((product) => (
+          <li key={product.id}>
+            <ProductCard product={product} />
+          </li>
+        ))}
+      </StyledProductGrid>
+    );
+  }
+};

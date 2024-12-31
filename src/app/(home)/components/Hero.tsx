@@ -1,4 +1,4 @@
-import { PrimaryButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { Heading } from "@/components/Heading";
 import mixins from "@/theme/abstracts/mixins";
 import { Product } from "@/types";
@@ -91,7 +91,9 @@ export const Hero = ({ product }: { product: Product | undefined }) => {
             <p>{product.description}</p>
           </Content>
 
-          <PrimaryButton>Shop now</PrimaryButton>
+          <Button variant="primary" href={`/product/${product.id}`}>
+            Shop now
+          </Button>
         </ContentLayout>
         <ImageContainer>
           <Image src={product.image.url} alt={product.image.alt} width={600} height={900} />

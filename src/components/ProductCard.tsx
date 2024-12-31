@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-
+import Image from "next/image";
 import { getDiscount } from "@/utils/getDiscount";
 import mixins from "@/theme/abstracts/mixins";
 import Link from "next/link";
@@ -31,7 +31,7 @@ const ImageContainer = styled.div`
   }
 `;
 
-const Image = styled.img`
+const StyledImage = styled(Image)`
   ${({ theme }) => css`
     position: absolute;
     inset: 0;
@@ -138,7 +138,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
   return (
     <Container>
       <ImageContainer>
-        <Image alt={image.url} src={image.url} />
+        <StyledImage alt={image.url} src={image.url} width={400} height={200} />
       </ImageContainer>
       <DescriptionContainer>
         <Title href={`/product/${id}`}>{title}</Title>

@@ -123,14 +123,14 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
   const isDiscount = Number(price) !== Number(discountedPrice);
 
-  let pricing = <Price>{price}</Price>;
+  let pricing = <Price>${price}</Price>;
 
   if (isDiscount) {
     pricing = (
       <>
         <Discount>{getDiscount(Number(price), Number(discountedPrice))}%</Discount>
-        <PriceSale>{discountedPrice}</PriceSale>
-        <OldPrice>{price}</OldPrice>
+        <PriceSale>${discountedPrice}</PriceSale>
+        <OldPrice>${price}</OldPrice>
       </>
     );
   }

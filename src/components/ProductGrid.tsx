@@ -17,7 +17,7 @@ import styled, { css } from "styled-components";
  *   ...
  * </ProductGrid>
  */
-export const ProductGrid = styled.div`
+export const ProductGrid = styled.ul`
   ${({ theme }) => css`
     display: grid;
     gap: ${theme.sizes.size5};

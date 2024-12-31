@@ -27,3 +27,5 @@ export const NAV_ITEMS = [
     label: "Products",
   },
 ];
+
+export const HERO_PRODUCT_ID = "9be4812e-16b2-44e6-bc55-b3aef9db2b82";

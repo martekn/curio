@@ -2,7 +2,6 @@ import { colors } from "./colors";
 import { sizes } from "./sizes";
 import { typography } from "./typography";
 import { Tokens } from "./tokens.type";
-import { breakpoints } from "./breakpoints";
 
 const t: Tokens = {};
 
@@ -63,9 +62,11 @@ t.heading4FontWeight = t.bodyFontWeight;
 t.gridGap = sizes.size6;
 t.flexGroupGap = sizes.size4;
 
-t.heroPaddingBlock = "clamp(5rem, 15vh, 8rem)";
-t.heroMarginTop = `clamp(0px, ${breakpoints.sm}, 7rem)`;
-t.sectionPaddingBlock = "clamp(5rem, 10vh, 9rem)";
+t.sectionPaddingBlock = "4rem";
+t.heroPaddingBlockSm = t.sectionPaddingBlock;
+t.heroPaddingBlockLg = "8rem";
+t.heroMarginTopSm = "0px";
+t.heroMarginTopLg = "1.5rem";
 
 t.containerMinMarginInline = sizes.size5;
 t.containerMaxWidth = "67rem";
@@ -183,4 +184,4 @@ t.formPlaceholderFontSize = t.formInputFontSize;
 
 t.formGroupSpacing = sizes.size2;
 
-export const tokens: Tokens = t as Tokens;
+export const tokens = t as Tokens;

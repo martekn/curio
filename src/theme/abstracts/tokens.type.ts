@@ -56,9 +56,11 @@ export interface Tokens {
   gridGap?: string;
   flexGroupGap?: string;
 
-  heroPaddingBlock?: string;
-  heroMarginTop?: string;
   sectionPaddingBlock?: string;
+  heroPaddingBlockSm?: string;
+  heroPaddingBlockLg?: string;
+  heroMarginTopSm?: string;
+  heroMarginTopLg?: string;
 
   containerMinMarginInline?: string;
   containerMaxWidth?: string;

@@ -63,6 +63,7 @@ t.gridGap = sizes.size6;
 t.flexGroupGap = sizes.size4;
 
 t.sectionPaddingBlock = "4rem";
+t.mainMarginTop = "2rem";
 t.heroPaddingBlockSm = t.sectionPaddingBlock;
 t.heroPaddingBlockLg = "8rem";
 t.heroMarginTopSm = "0px";

@@ -74,7 +74,9 @@ const updateLookAhead = debounce(
       return;
     }
 
-    const matchingProducts = products.filter((product) => product.title.toLowerCase().includes(searchTerm));
+    const matchingProducts = products.filter((product) =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
     setShowLookAhead(true);
     setProductsSearchResult(matchingProducts);
   },

@@ -12,7 +12,7 @@ declare module "react-aria-components" {
   }
 }
 
-export function ClientProviders({ children }: { children: React.ReactNode }) {
+export const ClientProviders = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   return (
@@ -22,4 +22,4 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       </ThemeProvider>
     </RouterProvider>
   );
-}
+};

@@ -9,11 +9,11 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 const MinHeightContainer = styled.div`
   min-height: 100vh;
 `;
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <html lang="en">
       <body>
@@ -30,4 +30,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

@@ -28,4 +28,18 @@ export const NAV_ITEMS = [
   },
 ];
 
+/**
+ * The unique identifier for the product featured in the hero section.
+ * This ID is used to highlight a specific product prominently on the homepage.
+ *
+ * @constant
+ */
 export const HERO_PRODUCT_ID = "9be4812e-16b2-44e6-bc55-b3aef9db2b82";
+
+/**
+ * The maximum rating value for a product.
+ * This constant is used as a reference for calculating and displaying product ratings (e.g., a 5-star system).
+ *
+ * @constant
+ */
+export const MAX_PRODUCT_RATING = 5;

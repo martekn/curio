@@ -6,7 +6,18 @@ interface Props extends React.HTMLAttributes<HTMLHeadingElement> {
   children: React.ReactNode;
 }
 
-const Heading1Lg = styled.div`
+const HeadingBase = styled.div`
+  ${({ theme }) => css`
+    font-family: ${theme.tokens.headingFontFamilyDefault};
+    color: ${theme.tokens.headingColorDefault};
+    font-weight: ${theme.tokens.headingFontWeightDefault};
+    letter-spacing: ${theme.tokens.headingLetterSpacing};
+    line-height: ${theme.tokens.headingLineHeight};
+    text-transform: ${theme.tokens.headingTextTransform};
+  `}
+`;
+
+const Heading1Lg = styled(HeadingBase)`
   ${({ theme }) => css`
     font-family: ${theme.tokens.heading1LgFontFamily};
     font-size: ${theme.tokens.heading1LgFontSize};
@@ -15,7 +26,7 @@ const Heading1Lg = styled.div`
   `}
 `;
 
-const Heading1 = styled.div`
+const Heading1 = styled(HeadingBase)`
   ${({ theme }) => css`
     font-family: ${theme.tokens.heading1FontFamily};
     font-size: ${theme.tokens.heading1FontSize};
@@ -24,7 +35,7 @@ const Heading1 = styled.div`
   `}
 `;
 
-const Heading2 = styled.div`
+const Heading2 = styled(HeadingBase)`
   ${({ theme }) => css`
     font-family: ${theme.tokens.heading2FontFamily};
     font-size: ${theme.tokens.heading2FontSize};
@@ -33,7 +44,7 @@ const Heading2 = styled.div`
   `}
 `;
 
-const Heading3 = styled.div`
+const Heading3 = styled(HeadingBase)`
   ${({ theme }) => css`
     font-family: ${theme.tokens.heading3FontFamily};
     font-size: ${theme.tokens.heading3FontSize};
@@ -42,7 +53,7 @@ const Heading3 = styled.div`
   `}
 `;
 
-const Heading4 = styled.div`
+const Heading4 = styled(HeadingBase)`
   ${({ theme }) => css`
     font-family: ${theme.tokens.heading4FontFamily};
     font-size: ${theme.tokens.heading4FontSize};

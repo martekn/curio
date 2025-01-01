@@ -49,7 +49,13 @@ const StyledImage = styled(Image)`
  * @param url - The URL of the image to display.
  * @returns The JSX element for the product display.
  */
-export const ProductDisplay = ({ alt, url }: { alt: Product["image"]["alt"]; url: Product["image"]["url"] }) => {
+export const ProductDisplay = ({
+  alt,
+  url,
+}: {
+  alt: Product["image"]["alt"] | undefined;
+  url: Product["image"]["url"] | undefined;
+}) => {
   return (
     <Container>
       <BackgroundOverlay />

@@ -50,6 +50,7 @@ interface Props {
   children: React.ReactNode;
   href?: string;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
 /**
@@ -64,9 +65,9 @@ interface Props {
  * @param href - The URL to navigate to if the button is rendered as a link.
  * @param onClick - The function to execute when the button is clicked.
  *
- * @returns {JSX.Element} A styled button component, either a `<button>` or a `<Link>` based on the presence of `href`.
+ * @returns A styled button component, either a `<button>` or a `<Link>` based on the presence of `href`.
  */
-export const Button = ({ variant, children, href, onClick }: Props) => {
+export const Button = ({ variant, children, href, onClick, type = "button" }: Props) => {
   if (href) {
     return (
       <StyledButton as={Link} href={href} $variant={variant}>
@@ -76,7 +77,7 @@ export const Button = ({ variant, children, href, onClick }: Props) => {
   }
 
   return (
-    <StyledButton onClick={onClick} $variant={variant}>
+    <StyledButton onClick={onClick} $variant={variant} type={type}>
       {children}
     </StyledButton>
   );

@@ -1,37 +1,52 @@
 import styled, { css } from "styled-components";
 import { Star } from "react-feather";
 
-type StarVariant = "empty" | "filled";
+type StarVariant = "empty" | "filled" | "half";
 
 const Icon = styled(Star)<{ $variant: StarVariant }>`
   ${({ theme, $variant }) => css`
-    stroke-width: 0.1rem;
+    stroke-width: 1px;
     height: 1rem;
     width: 1rem;
-    ${$variant === "empty"
-      ? css`
-          fill: none;
-          stroke: ${theme.colors.light.neutral400};
-        `
-      : css`
-          fill: ${theme.colors.light.neutral900};
-          stroke: ${theme.colors.light.neutral900};
-        `}
+
+    ${$variant === "empty" &&
+    css`
+      fill: none;
+      stroke: ${theme.colors.light.neutral400};
+    `}
+
+    ${$variant === "half" &&
+    css`
+      position: absolute;
+      fill: ${theme.colors.light.neutral900};
+      stroke: ${theme.colors.light.neutral900};
+      clip-path: inset(0 50% 0 0)};
+    `}
+
+    ${$variant === "filled" &&
+    css`
+      position: absolute;
+      fill: ${theme.colors.light.neutral900};
+      stroke: ${theme.colors.light.neutral900};
+    `}
   `}
 `;
 
+const Container = styled.div`
+  position: relative;
+`;
+
 /**
- * A component that renders a styled star icon to represent a rating.
+ * Renders a rating icon based on the provided variant.
  *
- * The star icon uses different styles based on the `variant` prop, which determines whether the star is "empty" or "filled."
- * The styles are applied using `styled-components` with theme-based colors.
- *
- * @component
- * @param variant - Determines the appearance of the star icon.
- *   - `"empty"`: The star icon has no fill and a neutral stroke color.
- *   - `"filled"`: The star icon is filled with a dark neutral color.
- * @returns A styled `Star` icon representing a rating state.
+ * @param variant - The variant of the star ("filled", "half", or "empty").
+ * @returns The JSX element representing a single rating icon.
  */
 export const RatingIcon = ({ variant }: { variant: StarVariant }) => {
-  return <Icon $variant={variant} />;
+  return (
+    <Container>
+      {variant !== "empty" && <Icon $variant={variant} />}
+      <Icon $variant="empty" />
+    </Container>
+  );
 };

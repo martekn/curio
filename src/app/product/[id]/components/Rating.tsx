@@ -10,22 +10,20 @@ const StarContainer = styled.ul`
 `;
 
 /**
- * A component that visually represents a star-based rating system.
+ * Renders a list of stars to visually represent a given rating.
  *
- * This component displays a maximum of stars defined by the `MAX_PRODUCT_RATING` constant.
- * The number of "filled" stars corresponds to the provided `rating` prop, while the remaining
- * stars are displayed as "empty." Each star is rendered using the `RatingIcon` component.
- *
- * @param rating - The rating value that determines the number of filled stars.
- *   - Should be a number between 0 and `MAX_PRODUCT_RATING` (inclusive).
- *   - Values greater than `MAX_PRODUCT_RATING` are capped.
- * @returns An unordered list (`ul`) visually representing the rating as a series of styled stars.
+ * @param rating - The rating value (0 to MAX_PRODUCT_RATING).
+ * @returns The JSX element containing the list of stars.
  */
 export const Rating = ({ rating }: { rating: number }) => {
   const stars = [];
+  const roundedRating = Math.round(rating * 2) / 2;
 
   for (let index = 0; index < MAX_PRODUCT_RATING; index++) {
-    const variant = index < rating ? "filled" : "empty";
+    const parsedRating = parseInt(roundedRating.toString());
+
+    const nonFilledVariant = roundedRating === parsedRating ? "empty" : "half";
+    const variant = index < parsedRating ? "filled" : nonFilledVariant;
 
     stars.push(
       <li key={index}>

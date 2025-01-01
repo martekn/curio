@@ -43,7 +43,7 @@ const Container = styled.div`
  * @param [size="1rem"] - The size of the star icon (e.g., "1rem", "24px").
  * @returns The JSX element representing a single rating icon.
  */
-export const RatingIcon = ({ variant, size = "1rem" }: { variant: StarVariant; size: string }) => {
+export const RatingIcon = ({ variant, size = "1rem" }: { variant: StarVariant; size?: string }) => {
   return (
     <Container>
       {variant !== "empty" && <Icon $variant={variant} $size={size} />}

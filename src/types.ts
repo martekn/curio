@@ -1,3 +1,10 @@
+export interface ProductReview {
+  id: string;
+  username: string;
+  rating: number;
+  description: string;
+}
+
 export interface Product {
   id: string;
   title: string;
@@ -10,12 +17,7 @@ export interface Product {
   };
   rating: number;
   tags: string[];
-  reviews: {
-    id: string;
-    username: string;
-    rating: number;
-    description: string;
-  }[];
+  reviews: ProductReview[];
 }
 
 export interface APIMeta {

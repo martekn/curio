@@ -22,6 +22,11 @@ const SmallText = styled.span`
     `}
 `;
 
+const AverageRatingContainer = styled.div`
+  ${({ theme }) => css`
+    margin-block: ${theme.sizes.size4} ${theme.sizes.size8};
+  `}
+`;
 const AverageRating = styled.div`
   ${({ theme }) => css`
     display: flex;
@@ -29,12 +34,6 @@ const AverageRating = styled.div`
     align-items: center;
     font-size: ${theme.typography.fontSize700};
     font-weight: ${theme.typography.fontWeightMedium};
-  `}
-`;
-
-const Container = styled.div`
-  ${({ theme }) => css`
-    ${mixins.flow(theme.sizes.size8)}
   `}
 `;
 
@@ -115,9 +114,9 @@ export const ProductReviews = ({
 
   if (reviews && reviews.length > 0) {
     return (
-      <Container id="rating">
+      <div id="rating">
         {Title}
-        <div>
+        <AverageRatingContainer>
           <Subtitle>
             <Heading headingLevel="p" headingStyle="HEADING_4">
               Average rating
@@ -129,7 +128,7 @@ export const ProductReviews = ({
           <AverageRating>
             <RatingIcon variant="filled" size="1.5rem" /> {rating}
           </AverageRating>
-        </div>
+        </AverageRatingContainer>
         <ReviewList>
           {reviews?.map((review) => (
             <li key={review.id}>
@@ -137,18 +136,16 @@ export const ProductReviews = ({
             </li>
           ))}
         </ReviewList>
-      </Container>
+      </div>
     );
   }
 
   return (
-    <Container id="rating">
+    <div id="rating">
       {Title}
-      <div>
-        <Subtitle>
-          <SmallText>No reviews yet</SmallText>
-        </Subtitle>
-      </div>
-    </Container>
+      <AverageRatingContainer>
+        <SmallText>No reviews yet</SmallText>
+      </AverageRatingContainer>
+    </div>
   );
 };

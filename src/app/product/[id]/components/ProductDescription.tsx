@@ -13,7 +13,7 @@ import { useCallback } from "react";
 
 const DescriptionSection = styled.div`
   ${({ theme }) => css`
-    margin-block: ${theme.sizes.size6};
+    margin-bottom: ${theme.sizes.size6};
     ${mixins.flow(theme.sizes.size3)}
 
     button {

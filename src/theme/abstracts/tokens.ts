@@ -56,7 +56,7 @@ t.heading3FontWeight = t.headingFontWeightDefault;
 t.heading4FontSize = t.bodyFontSize;
 t.heading4Color = t.bodyTextColor;
 t.heading4FontFamily = t.bodyFontFamily;
-t.heading4FontWeight = t.bodyFontWeight;
+t.heading4FontWeight = typography.fontWeightMedium;
 
 // Layout
 t.gridGap = sizes.size6;

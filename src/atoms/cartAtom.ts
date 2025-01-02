@@ -31,6 +31,37 @@ export const quantityTotalAtom = atom((get) => {
 });
 
 /**
+ * Atom that calculates the total price of all items in the cart.
+ * The total is computed by multiplying the price of each product by its quantity
+ * and summing up the results for all items in the cart.
+ *
+ * @returns {string} The total price of all items in the cart, formatted to two decimal places.
+ */
+export const totalPriceAtom = atom((get) => {
+  const cartItems = get(cartAtom);
+  const totalPrice = cartItems.reduce((total, cartItem) => total + cartItem.product.price * cartItem.quantity, 0);
+
+  return totalPrice.toFixed(2);
+});
+
+/**
+ * Atom that calculates the total discounted price of all items in the cart.
+ * The total is computed by multiplying the discounted price of each product by its quantity
+ * and summing up the results for all items in the cart.
+ *
+ * @returns {string} The total discounted price of all items in the cart, formatted to two decimal places.
+ */
+export const totalDiscountedPriceAtom = atom((get) => {
+  const cartItems = get(cartAtom);
+  const totalPrice = cartItems.reduce(
+    (total, cartItem) => total + cartItem.product.discountedPrice * cartItem.quantity,
+    0
+  );
+
+  return totalPrice.toFixed(2);
+});
+
+/**
  * Atom that fetches updated product information and populates the cart with the latest data.
  * This atom performs a fetch request for each cart item and updates the cart state.
  */

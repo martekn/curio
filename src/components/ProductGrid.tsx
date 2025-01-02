@@ -12,8 +12,10 @@ export const StyledProductGrid = styled.ul`
     }
 
     @media (min-width: ${theme.breakpoints.md}) {
-      grid-template-columns: repeat(4, 1fr);
       gap: ${theme.sizes.size7};
+    }
+    @media (min-width: ${theme.breakpoints.lg}) {
+      grid-template-columns: repeat(4, 1fr);
     }
   `}
 `;

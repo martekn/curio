@@ -72,20 +72,40 @@ const Heading4 = styled(HeadingBase)`
  *
  * @returns The styled heading component based on the specified level and style.
  */
-export const Heading = ({ headingLevel = "p", headingStyle = "HEADING_1", children }: Props) => {
+export const Heading = ({ headingLevel = "p", headingStyle = "HEADING_1", children, ...props }: Props) => {
   switch (headingStyle) {
     case "HEADING_1_LG":
-      return <Heading1Lg as={headingLevel}>{children}</Heading1Lg>;
+      return (
+        <Heading1Lg as={headingLevel} {...props}>
+          {children}
+        </Heading1Lg>
+      );
     case "HEADING_4":
-      return <Heading4 as={headingLevel}>{children}</Heading4>;
+      return (
+        <Heading4 as={headingLevel} {...props}>
+          {children}
+        </Heading4>
+      );
 
     case "HEADING_3":
-      return <Heading3 as={headingLevel}>{children}</Heading3>;
+      return (
+        <Heading3 as={headingLevel} {...props}>
+          {children}
+        </Heading3>
+      );
 
     case "HEADING_2":
-      return <Heading2 as={headingLevel}>{children}</Heading2>;
+      return (
+        <Heading2 as={headingLevel} {...props}>
+          {children}
+        </Heading2>
+      );
 
     default:
-      return <Heading1 as={headingLevel}>{children}</Heading1>;
+      return (
+        <Heading1 as={headingLevel} {...props}>
+          {children}
+        </Heading1>
+      );
   }
 };

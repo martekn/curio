@@ -67,17 +67,17 @@ interface Props {
  *
  * @returns A styled button component, either a `<button>` or a `<Link>` based on the presence of `href`.
  */
-export const Button = ({ variant, children, href, onClick, type = "button" }: Props) => {
+export const Button = ({ variant, children, href, onClick, ...props }: Props) => {
   if (href) {
     return (
-      <StyledButton as={Link} href={href} $variant={variant}>
+      <StyledButton as={Link} href={href} $variant={variant} {...props}>
         {children}
       </StyledButton>
     );
   }
 
   return (
-    <StyledButton onClick={onClick} $variant={variant} type={type}>
+    <StyledButton onClick={onClick} $variant={variant} {...props}>
       {children}
     </StyledButton>
   );

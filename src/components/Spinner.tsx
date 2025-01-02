@@ -24,9 +24,9 @@ const SpinnerCircle = styled(motion.div)<{ $size: string; $width: string }>`
  * @returns A visually hidden "Loading..." text for screen readers
  * and a rotating spinner element visible to the user.
  */
-export default function Spinner({ width = "0.2rem", size = "2.5rem" }) {
+export default function Spinner({ width = "0.2rem", size = "2.5rem", ...props }) {
   return (
-    <div>
+    <div {...props}>
       <VisuallyHidden>Loading...</VisuallyHidden>
       <SpinnerCircle
         $width={width}

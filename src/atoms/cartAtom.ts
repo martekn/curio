@@ -1,32 +1,13 @@
-import { Storage } from "@/utils/Storage";
 import { atom } from "jotai";
 import { API_URL, CART_STORAGE_KEY } from "@/constants";
-import { Product, ProductFetch } from "@/types";
+import { CartItem, Product, ProductFetch } from "@/types";
 import { request } from "@/utils/request";
-
-interface CartItem {
-  quantity: number;
-  product: Product;
-}
+import { atomWithStorage } from "jotai/utils";
 
 /**
- * Initializes the cart, either from local storage or an empty cart if no data exists.
- * @returns {CartItem[]} The initial cart state
+ * Atom to hold the cart items. This is a persistent atom using storage.
  */
-const setInitialCartAtom = (): CartItem[] => {
-  const cart = Storage.local.get<CartItem[]>(CART_STORAGE_KEY);
-
-  if (cart) {
-    return cart;
-  }
-
-  return [];
-};
-
-/**
- * Atom to hold the cart items, initially set by `setInitialCartAtom`.
- */
-export const cartAtom = atom(setInitialCartAtom());
+export const cartAtom = atomWithStorage<CartItem[]>(CART_STORAGE_KEY, []);
 
 /**
  * Atom to track if the cart items are being fetched.
@@ -51,10 +32,10 @@ export const quantityTotalAtom = atom((get) => {
 
 /**
  * Atom that fetches updated product information and populates the cart with the latest data.
- * This atom performs a fetch request for each cart item and updates the cart state in local storage.
+ * This atom performs a fetch request for each cart item and updates the cart state.
  */
 export const fetchCartItemsAtom = atom(null, async (get, set) => {
-  const cartItems = get(cartAtom); // Get the current cart items
+  const cartItems = get(cartAtom);
   const loading = get(fetchCartLoadingAtom);
 
   if (loading) return;
@@ -77,7 +58,6 @@ export const fetchCartItemsAtom = atom(null, async (get, set) => {
       })
     );
 
-    Storage.local.set(CART_STORAGE_KEY, updatedCart);
     set(cartAtom, updatedCart);
   } catch (error) {
     set(fetchCartErrorAtom, true);
@@ -103,7 +83,6 @@ export const addToCartAtom = atom(null, (get, set, product: Product) => {
   }
 
   set(cartAtom, [...cart, newCartItem]);
-  Storage.local.set(CART_STORAGE_KEY, [...cart, newCartItem]);
 });
 
 /**
@@ -115,7 +94,6 @@ export const removeFromCartAtom = atom(null, (get, set, id: Product["id"]) => {
   const updatedCart = cart.filter((item) => item.product.id !== id);
 
   set(cartAtom, updatedCart);
-  Storage.local.set(CART_STORAGE_KEY, updatedCart);
 });
 
 /**
@@ -133,13 +111,12 @@ export const increaseProductQuantityAtom = atom(null, (get, set, id: Product["id
   });
 
   set(cartAtom, updatedCart);
-  Storage.local.set(CART_STORAGE_KEY, updatedCart);
 });
 
 /**
  * Atom that decreases the quantity of a product in the cart by its ID.
  * If the quantity reaches 0 or below, the product will be removed from the cart.
- * @param {Product["id"]} id The ID of the product whose quantity to decrease
+ * @param id The ID of the product whose quantity to decrease
  */
 export const decreaseProductQuantityAtom = atom(null, (get, set, id: Product["id"]) => {
   const cart = get(cartAtom);
@@ -162,5 +139,4 @@ export const decreaseProductQuantityAtom = atom(null, (get, set, id: Product["id
   }
 
   set(cartAtom, updatedCart);
-  Storage.local.set(CART_STORAGE_KEY, updatedCart);
 });

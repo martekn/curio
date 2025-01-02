@@ -20,6 +20,11 @@ export interface Product {
   reviews: ProductReview[];
 }
 
+export interface CartItem {
+  quantity: number;
+  product: Product;
+}
+
 export interface APIMeta {
   isFirstPage: boolean;
   isLastPage: boolean;

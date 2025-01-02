@@ -68,19 +68,23 @@ const Product = () => {
     }
   }, [data, error, setProduct]);
   return (
-    <Container>
-      <Main>
-        <DescriptionWrapper>
-          <ProductDescription product={product} />
-        </DescriptionWrapper>
-        <DisplayWrapper>
-          <ProductDisplay alt={product?.image.alt} url={product?.image.url} />
-        </DisplayWrapper>
-        <ReviewWrapper>
-          <ProductReviews reviews={product?.reviews} rating={product?.rating} />
-        </ReviewWrapper>
-      </Main>
-    </Container>
+    <>
+      <title>{product ? `${product.title} - Buy Now at Curio` : `${id} - Curio`}</title>
+      <meta name="description" content={product ? `Buy ${product.title} now at Curio. ${product.description}` : ""} />
+      <Container>
+        <Main>
+          <DescriptionWrapper>
+            <ProductDescription product={product} />
+          </DescriptionWrapper>
+          <DisplayWrapper>
+            <ProductDisplay alt={product?.image.alt} url={product?.image.url} />
+          </DisplayWrapper>
+          <ReviewWrapper>
+            <ProductReviews reviews={product?.reviews} rating={product?.rating} />
+          </ReviewWrapper>
+        </Main>
+      </Container>
+    </>
   );
 };
 

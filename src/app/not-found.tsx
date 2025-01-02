@@ -12,16 +12,24 @@ import Link from "next/link";
  */
 const NotFoundPage = () => {
   return (
-    <StatusPageContainer>
-      <Heading headingLevel="h1" headingStyle="HEADING_1_LG">
-        Oops! Page Not Found
-      </Heading>
-      <p>
-        We&apos;re sorry, but the page you&apos;re looking for doesn&apos;t exist or has been moved. It seems like
-        you&apos;ve taken a wrong turn somewhere.
-      </p>
-      <Link href="/">Return to home</Link>
-    </StatusPageContainer>
+    <>
+      <title>Page Not Found - Curio</title>
+      <meta
+        name="description"
+        content="Oops! The page you are looking for does not exist. Explore Curio for amazing products instead."
+      />
+
+      <StatusPageContainer>
+        <Heading headingLevel="h1" headingStyle="HEADING_1_LG">
+          Oops! Page Not Found
+        </Heading>
+        <p>
+          We&apos;re sorry, but the page you&apos;re looking for doesn&apos;t exist or has been moved. It seems like
+          you&apos;ve taken a wrong turn somewhere.
+        </p>
+        <Link href="/">Return to home</Link>
+      </StatusPageContainer>
+    </>
   );
 };
 

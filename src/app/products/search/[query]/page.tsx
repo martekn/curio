@@ -47,14 +47,21 @@ const Search = () => {
   }, [data, error, query]);
 
   return (
-    <Container>
-      <Main>
-        <Heading headingLevel="h1" headingStyle="HEADING_2">
-          Search results for <Italic>&quot;{query}&quot;</Italic>
-        </Heading>
-        <ProductGrid products={products} />
-      </Main>
-    </Container>
+    <>
+      <title>{`Search Results for "${query}" - Curio`}</title>
+      <meta
+        name="description"
+        content={`Browse results for "${query}" on Curio. Find unique products tailored to your search.`}
+      />
+      <Container>
+        <Main>
+          <Heading headingLevel="h1" headingStyle="HEADING_2">
+            Search results for <Italic>&quot;{query}&quot;</Italic>
+          </Heading>
+          <ProductGrid products={products} />
+        </Main>
+      </Container>
+    </>
   );
 };
 

@@ -17,6 +17,7 @@ import { CartTableRow } from "./components/CartTableRow";
 import { Heading } from "@/components/Heading";
 import mixins from "@/theme/abstracts/mixins";
 import { Message } from "@/components/Message";
+import Spinner from "@/components/Spinner";
 
 const OldPrice = styled.s`
   ${({ theme }) => css`
@@ -51,7 +52,7 @@ const PriceContainer = styled.div`
   `}
 `;
 
-const Price = styled.td`
+const Price = styled.div`
   ${({ theme }) => css`
     line-height: 1.3;
     font-weight: ${theme.typography.fontWeightMedium};
@@ -88,6 +89,57 @@ const HiddenMobileTableHeader = styled(TableHeader)`
   `}
 `;
 
+const SpinnerContainer = styled.div`
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  padding-block: 2rem;
+`;
+
+/**
+ * A container component for the shopping cart page, wrapping the main content area.
+ *
+ * @param [children] - The child elements to render inside the container, typically cart items or related components.
+ *
+ * @returns A styled container for the shopping cart page, including the main heading and children.
+ */
+const CartContainer = ({ children }: { children?: React.ReactNode }) => {
+  return (
+    <Container>
+      <Main>
+        <Heading headingLevel="h1" headingStyle="HEADING_1">
+          Shopping cart
+        </Heading>
+
+        {children}
+      </Main>
+    </Container>
+  );
+};
+
+/**
+ * A table component to display cart items, with columns for products, quantity, removal, and total.
+ *
+ * @param [children] - The child elements to render inside the table body, typically `CartItem` components.
+ *
+ * @returns A styled table for the cart, including headers and children (cart item rows).
+ */
+const CartTable = ({ children }: { children?: React.ReactNode }) => {
+  return (
+    <Table>
+      <thead>
+        <CartTableRow>
+          <TableHeader>Products</TableHeader>
+          <HiddenMobileTableHeader>Quantity</HiddenMobileTableHeader>
+          <HiddenMobileTableHeader>Remove</HiddenMobileTableHeader>
+          <TableHeader>Total</TableHeader>
+        </CartTableRow>
+      </thead>
+      <tbody>{children}</tbody>
+    </Table>
+  );
+};
+
 /**
  * Shopping Cart component.
  *
@@ -104,43 +156,14 @@ const Cart = () => {
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);
-
-  if (fetchCartLoading) {
-    return <p>loading...</p>;
-  }
-
-  if (fetchCartError) {
+  if (cartItems.length > 0 && !fetchCartLoading && !fetchCartError) {
     return (
-      <Container>
-        <Message type="error" title="Unable to Load Your Cart">
-          We&apos;re sorry, but we couldn&apos;t retrieve your cart items at the moment. Please check your internet
-          connection and try again. If the issue persists, please contact our support team for assistance.
-        </Message>
-      </Container>
-    );
-  }
-
-  return (
-    <Container>
-      <Main>
-        <Heading headingLevel="h1" headingStyle="HEADING_1">
-          Shopping cart
-        </Heading>
-        <Table>
-          <thead>
-            <CartTableRow>
-              <TableHeader>Products</TableHeader>
-              <HiddenMobileTableHeader>Quantity</HiddenMobileTableHeader>
-              <HiddenMobileTableHeader>Remove</HiddenMobileTableHeader>
-              <TableHeader>Total</TableHeader>
-            </CartTableRow>
-          </thead>
-          <tbody>
-            {cartItems.map((item) => (
-              <CartItem item={item} key={item.product.id} />
-            ))}
-          </tbody>
-        </Table>
+      <CartContainer>
+        <CartTable>
+          {cartItems.map((item) => (
+            <CartItem item={item} key={item.product.id} />
+          ))}
+        </CartTable>
         <Checkout>
           <PriceContainer>
             <div>Total price:</div>
@@ -153,8 +176,29 @@ const Cart = () => {
             Go to checkout
           </CheckoutButton>
         </Checkout>
-      </Main>
-    </Container>
+      </CartContainer>
+    );
+  }
+
+  if (fetchCartError) {
+    return (
+      <CartContainer>
+        <CartTable />
+        <Message type="error" title="Unable to Load Your Cart">
+          We&apos;re sorry, but we couldn&apos;t retrieve your cart items at the moment. Please check your internet
+          connection and try again. If the issue persists, please contact our support team for assistance.
+        </Message>
+      </CartContainer>
+    );
+  }
+
+  return (
+    <CartContainer>
+      <CartTable />
+      <SpinnerContainer>
+        <Spinner />
+      </SpinnerContainer>
+    </CartContainer>
   );
 };
 export default Cart;

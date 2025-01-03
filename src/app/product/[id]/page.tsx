@@ -11,6 +11,7 @@ import { ProductReviews } from "./components/ProductReviews";
 import { ProductDescription } from "./components/ProductDescription";
 import { ProductDisplay } from "./components/ProductDisplay";
 import { Message } from "@/components/Message";
+import Spinner from "@/components/Spinner";
 
 const DisplayWrapper = styled.div`
   grid-area: display;
@@ -47,6 +48,12 @@ const Main = styled.main`
     }
   `}
 `;
+const SpinnerContainer = styled(Container)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-block: 5rem;
+`;
 
 /**
  * The product detail page
@@ -71,32 +78,48 @@ const Product = () => {
 
   if (error) {
     return (
-      <Container>
-        <Message type="error" title="Unable to Load Product Details">
-          We&apos;re sorry, but we couldn&apos;t fetch the product details at this time. Please check your internet
-          connection or try refreshing the page. If the problem persists, contact our customer support for assistance.
-        </Message>
-      </Container>
+      <>
+        <title>{`Error displaying product ${id} - Curio`}</title>
+        <meta name="description" content="Unable to load product details" />
+        <Container>
+          <Message type="error" title="Unable to Load Product Details">
+            We&apos;re sorry, but we couldn&apos;t fetch the product details at this time. Please check your internet
+            connection or try refreshing the page. If the problem persists, contact our customer support for assistance.
+          </Message>
+        </Container>
+      </>
+    );
+  }
+
+  if (product) {
+    return (
+      <>
+        <title>{product ? `${product.title} - Buy Now at Curio` : `${id} - Curio`}</title>
+        <meta name="description" content={product ? `Buy ${product.title} now at Curio. ${product.description}` : ""} />
+        <Container>
+          <Main>
+            <DescriptionWrapper>
+              <ProductDescription product={product} />
+            </DescriptionWrapper>
+            <DisplayWrapper>
+              <ProductDisplay alt={product?.image.alt} url={product?.image.url} />
+            </DisplayWrapper>
+            <ReviewWrapper>
+              <ProductReviews reviews={product?.reviews} rating={product?.rating} />
+            </ReviewWrapper>
+          </Main>
+        </Container>
+      </>
     );
   }
 
   return (
     <>
-      <title>{product ? `${product.title} - Buy Now at Curio` : `${id} - Curio`}</title>
-      <meta name="description" content={product ? `Buy ${product.title} now at Curio. ${product.description}` : ""} />
-      <Container>
-        <Main>
-          <DescriptionWrapper>
-            <ProductDescription product={product} />
-          </DescriptionWrapper>
-          <DisplayWrapper>
-            <ProductDisplay alt={product?.image.alt} url={product?.image.url} />
-          </DisplayWrapper>
-          <ReviewWrapper>
-            <ProductReviews reviews={product?.reviews} rating={product?.rating} />
-          </ReviewWrapper>
-        </Main>
-      </Container>
+      <title>{`${id} - Curio`}</title>
+      <meta name="description" content="Loading product details..." />
+      <SpinnerContainer>
+        <Spinner />
+      </SpinnerContainer>
     </>
   );
 };

@@ -13,6 +13,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { ProductsFetch } from "@/types";
 import { API_URL, HERO_PRODUCT_ID } from "@/constants";
 import { VisuallyHidden } from "react-aria";
+import { Message } from "@/components/Message";
 
 const StyledSection = styled(Section)`
   ${({ theme }) => css`
@@ -59,6 +60,17 @@ const Home = () => {
       setProducts(data.data);
     }
   }, [data, error, setProducts]);
+
+  if (error) {
+    return (
+      <Container>
+        <Message type="error" title="Oops! Something went wrong">
+          We&apos;re unable to load the products at the moment. Please check your internet connection or try again
+          later. If the issue persists, contact our support team.
+        </Message>
+      </Container>
+    );
+  }
 
   return (
     <main>

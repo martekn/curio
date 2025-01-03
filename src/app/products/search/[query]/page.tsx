@@ -58,7 +58,7 @@ const Search = () => {
           <Heading headingLevel="h1" headingStyle="HEADING_2">
             Search results for <Italic>&quot;{query}&quot;</Italic>
           </Heading>
-          <ProductGrid products={products} />
+          <ProductGrid products={products} isError={error} />
         </Main>
       </Container>
     </>

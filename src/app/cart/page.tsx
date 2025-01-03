@@ -16,6 +16,7 @@ import styled, { css } from "styled-components";
 import { CartTableRow } from "./components/CartTableRow";
 import { Heading } from "@/components/Heading";
 import mixins from "@/theme/abstracts/mixins";
+import { Message } from "@/components/Message";
 
 const OldPrice = styled.s`
   ${({ theme }) => css`
@@ -109,7 +110,14 @@ const Cart = () => {
   }
 
   if (fetchCartError) {
-    return <p>something went wrong</p>;
+    return (
+      <Container>
+        <Message type="error" title="Unable to Load Your Cart">
+          We&apos;re sorry, but we couldn&apos;t retrieve your cart items at the moment. Please check your internet
+          connection and try again. If the issue persists, please contact our support team for assistance.
+        </Message>
+      </Container>
+    );
   }
 
   return (

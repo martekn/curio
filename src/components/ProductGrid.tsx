@@ -1,6 +1,7 @@
 import { Product } from "@/types";
 import styled, { css } from "styled-components";
 import { ProductCard } from "./ProductCard";
+import { Message } from "./Message";
 
 export const StyledProductGrid = styled.ul`
   ${({ theme }) => css`
@@ -30,7 +31,15 @@ export const StyledProductGrid = styled.ul`
  * @param products - An array of `Product` objects to display in the grid.
  * @returns A styled grid containing product cards.
  */
-export const ProductGrid = ({ products }: { products: Product[] | undefined }) => {
+export const ProductGrid = ({ products, isError = false }: { products: Product[] | undefined; isError?: boolean }) => {
+  if (isError) {
+    return (
+      <Message type="error" title="Oops! Something went wrong">
+        We&apos;re unable to load the products at the moment. Please check your internet connection or try again later.
+        If the issue persists, contact our support team.
+      </Message>
+    );
+  }
   if (products) {
     return (
       <StyledProductGrid>

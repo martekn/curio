@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { ProductReviews } from "./components/ProductReviews";
 import { ProductDescription } from "./components/ProductDescription";
 import { ProductDisplay } from "./components/ProductDisplay";
+import { Message } from "@/components/Message";
 
 const DisplayWrapper = styled.div`
   grid-area: display;
@@ -67,6 +68,18 @@ const Product = () => {
       setProduct(data.data);
     }
   }, [data, error, setProduct]);
+
+  if (error) {
+    return (
+      <Container>
+        <Message type="error" title="Unable to Load Product Details">
+          We&apos;re sorry, but we couldn&apos;t fetch the product details at this time. Please check your internet
+          connection or try refreshing the page. If the problem persists, contact our customer support for assistance.
+        </Message>
+      </Container>
+    );
+  }
+
   return (
     <>
       <title>{product ? `${product.title} - Buy Now at Curio` : `${id} - Curio`}</title>

@@ -1,6 +1,7 @@
 export const colors = {
   light: {
     neutral100: "#FFFFFF",
+    neutral200: "#F3F2F2",
     neutral300: "#D4D0D0",
     neutral400: "#726565",
     neutral900: "#1D1919",

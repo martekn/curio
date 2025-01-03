@@ -53,7 +53,7 @@ const useProducts = (featuredId: string) => {
  */
 const Home = () => {
   const { setProducts, popularProducts, featuredProducts, featuredProduct } = useProducts(HERO_PRODUCT_ID);
-  const { data, error } = useFetch<ProductsFetch>(API_URL, "get");
+  const { data, error, loading } = useFetch<ProductsFetch>(API_URL, "get");
 
   useEffect(() => {
     if (!error && data && "data" in data && Array.isArray(data.data)) {
@@ -83,13 +83,13 @@ const Home = () => {
           <Heading headingLevel="h2" headingStyle="HEADING_2">
             Popular products
           </Heading>
-          <ProductGrid products={popularProducts} />
+          <ProductGrid products={popularProducts} isLoading={loading} />
         </StyledSection>
         <StyledSection>
           <Heading headingLevel="h2" headingStyle="HEADING_2">
             Featured products
           </Heading>
-          <ProductGrid products={featuredProducts} />
+          <ProductGrid products={featuredProducts} isLoading={loading} cardCount={8} />
         </StyledSection>
       </Container>
     </main>

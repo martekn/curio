@@ -44,7 +44,7 @@ const Products = () => {
         <Heading headingLevel="h1" headingStyle="HEADING_2">
           All products
         </Heading>
-        <ProductGrid products={products} isError={error} />
+        <ProductGrid products={products} isError={error} cardCount={16} />
       </Main>
     </Container>
   );

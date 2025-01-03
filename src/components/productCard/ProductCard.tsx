@@ -44,8 +44,9 @@ const StyledImage = styled(Image)`
 
 const DescriptionContainer = styled.div`
   ${({ theme }) => css`
-  mixins.flow(theme.tokens.cardFlowSpacing);
-  padding: ${theme.tokens.cardPadding};`}
+    ${mixins.flow(theme.tokens.cardFlowSpacing)}
+    padding: ${theme.tokens.cardPadding};
+  `}
 `;
 
 const PriceContainer = styled.div`

@@ -1,18 +1,14 @@
-import { Button } from "@/components/Button";
-import { Heading } from "@/components/Heading";
+import { SkeletonContainer, SkeletonImage, SkeletonText } from "@/components/SkeletonLoader";
 import mixins from "@/theme/abstracts/mixins";
-import { Product } from "@/types";
-import Image from "next/image";
 import styled, { css } from "styled-components";
-import { SkeletonHero } from "./SkeletonHero";
 
-const Container = styled.section`
+const Container = styled.div`
   ${({ theme }) => css`
     padding-block: ${theme.tokens.heroPaddingBlockSm};
     margin-top: ${theme.tokens.heroMarginTopSm};
-    background-color: ${theme.colors.light.primary100};
+    background-color: ${theme.colors.light.neutral200};
     display: grid;
-
+    overflow: hidden;
     @media (min-width: ${theme.breakpoints.md}) {
       padding-block: ${theme.tokens.heroPaddingBlockLg};
       margin-top: ${theme.tokens.heroMarginTopLg};
@@ -49,24 +45,14 @@ const Content = styled.div`
   `}
 `;
 
-const ImageContainer = styled.div`
+const StyledSkeletonImage = styled(SkeletonImage)`
   ${({ theme }) => css`
     grid-row: 1;
     ${mixins.sectionBleed({ sectionPadding: theme.tokens.heroPaddingBlockSm, position: "top" })}
     position: relative;
     min-height: 30rem;
 
-    img {
-      width: 100%;
-      position: absolute;
-      inset: 0;
-    }
-
     @media (min-width: ${theme.breakpoints.md}) {
-      img {
-        border-radius: 0 ${theme.tokens.borderRadius} ${theme.tokens.borderRadius} 0;
-      }
-
       grid-column: 2;
       ${mixins.sectionBleed({ sectionPadding: theme.tokens.heroPaddingBlockLg })}
     }
@@ -74,34 +60,25 @@ const ImageContainer = styled.div`
 `;
 
 /**
- * A component that displays a hero section for showcasing a featured product.
+ * A skeleton loader component for a hero section, simulating the loading state with placeholders for text and an image.
  *
- * @param product - The product to showcase in the hero section.
- *   - If product is `undefined`, the hero section will not render.
- * @returns The hero section component if a product is provided, otherwise skeleton loader.
+ * @returns A styled skeleton representation of a hero section, including placeholders for headings, subheadings, and an image.
  */
-export const Hero = ({ product }: { product: Product | undefined }) => {
-  if (product) {
-    return (
+export const SkeletonHero = () => {
+  return (
+    <SkeletonContainer>
       <Container>
         <ContentLayout>
           <Content>
-            <Heading headingLevel="h2" headingStyle="HEADING_1_LG">
-              Have you tried our {product.title}?
-            </Heading>
-            <p>{product.description}</p>
+            <SkeletonText $height="3rem" $width="90%" />
+            <SkeletonText $height="3rem" $width="50%" />
+            <SkeletonText $height="1.5rem" $width="90%" />
+            <SkeletonText $height="1.5rem" $width="40%" />
           </Content>
-
-          <Button variant="primary" href={`/product/${product.id}`}>
-            Shop now
-          </Button>
+          <SkeletonText $height="3rem" $width="9rem" />
         </ContentLayout>
-        <ImageContainer>
-          <Image src={product.image.url} alt={product.image.alt} width={600} height={900} />
-        </ImageContainer>
+        <StyledSkeletonImage $height="100%" />
       </Container>
-    );
-  }
-
-  return <SkeletonHero />;
+    </SkeletonContainer>
+  );
 };

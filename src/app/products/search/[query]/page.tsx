@@ -2,6 +2,7 @@
 
 import { Container } from "@/components/Container";
 import { Heading } from "@/components/Heading";
+import { Message } from "@/components/Message";
 import { ProductGrid } from "@/components/ProductGrid";
 import { API_URL } from "@/constants";
 import { useFetch } from "@/hooks/useFetch";
@@ -36,7 +37,7 @@ const Italic = styled.i`
 const Search = () => {
   const { query } = useParams();
   const [products, setProducts] = useState<Product[]>([]);
-  const { data, error } = useFetch<ProductsFetch>(API_URL, "get");
+  const { data, error, loading } = useFetch<ProductsFetch>(API_URL, "get");
 
   useEffect(() => {
     if (!error && data && "data" in data && Array.isArray(data.data) && typeof query === "string") {
@@ -58,7 +59,11 @@ const Search = () => {
           <Heading headingLevel="h1" headingStyle="HEADING_2">
             Search results for <Italic>&quot;{query}&quot;</Italic>
           </Heading>
-          <ProductGrid products={products} isError={error} />
+          {!loading && products.length === 0 ? (
+            <Message type="info">No Results Found</Message>
+          ) : (
+            <ProductGrid products={products} isError={error} cardCount={16} />
+          )}
         </Main>
       </Container>
     </>

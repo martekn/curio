@@ -12,14 +12,4 @@ export const base = css`
     min-height: 100vh;
     height: 100%;
   }
-
-  a {
-    color: ${tokens.linkColor};
-    text-decoration: ${tokens.linkTextDecoration};
-
-    :is(:hover, :focus-visible) {
-      color: ${tokens.linkColorHover};
-      text-decoration: ${tokens.linkTextDecorationHover};
-    }
-  }
 `;

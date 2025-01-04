@@ -2,7 +2,7 @@
 
 import { Heading } from "@/components/Heading";
 import { StatusPageContainer } from "@/components/StatusPageContainer";
-import Link from "next/link";
+import { StyledLink } from "@/components/StyledLink";
 
 /**
  * The contact page.
@@ -27,7 +27,7 @@ const NotFoundPage = () => {
           We&apos;re sorry, but the page you&apos;re looking for doesn&apos;t exist or has been moved. It seems like
           you&apos;ve taken a wrong turn somewhere.
         </p>
-        <Link href="/">Return to home</Link>
+        <StyledLink href="/">Return to home</StyledLink>
       </StatusPageContainer>
     </>
   );

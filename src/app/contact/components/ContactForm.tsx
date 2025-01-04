@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/Button";
 import styled, { css } from "styled-components";
+import { Message } from "@/components/Message";
 
 type ContactSchemaType = z.infer<typeof ContactSchema>;
 
@@ -33,22 +34,43 @@ export const ContactForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitSuccessful },
   } = useForm<ContactSchemaType>({ resolver: zodResolver(ContactSchema) });
 
   const onSubmit: SubmitHandler<ContactSchemaType> = (data) => {
     console.log("Contact form validation criteria met:", data);
+    reset();
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <InputGroup label="Full name" register={register} name="fullName" type="text" error={errors.fullName?.message} />
-      <InputGroup label="Email" register={register} name="email" type="text" error={errors.email?.message} />
-      <InputGroup label="Subject" register={register} name="subject" type="text" error={errors.subject?.message} />
-      <InputGroup label="Message" register={register} name="message" type="textarea" error={errors.message?.message} />
-      <Button variant="primary" type="submit">
-        Send message
-      </Button>
-    </Form>
+    <div>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        {isSubmitSuccessful && (
+          <Message type="success" margin="0" title="Thank you!">
+            Your message has been sent.
+          </Message>
+        )}
+        <InputGroup
+          label="Full name"
+          register={register}
+          name="fullName"
+          type="text"
+          error={errors.fullName?.message}
+        />
+        <InputGroup label="Email" register={register} name="email" type="text" error={errors.email?.message} />
+        <InputGroup label="Subject" register={register} name="subject" type="text" error={errors.subject?.message} />
+        <InputGroup
+          label="Message"
+          register={register}
+          name="message"
+          type="textarea"
+          error={errors.message?.message}
+        />
+        <Button variant="primary" type="submit">
+          Send message
+        </Button>
+      </Form>
+    </div>
   );
 };

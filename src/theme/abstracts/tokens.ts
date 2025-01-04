@@ -159,7 +159,7 @@ t.formLabelFontFamily = t.bodyFontFamily;
 t.formLabelFontWeight = typography.fontWeightMedium;
 t.formLabelFontSize = t.bodyFontSize;
 
-t.formErrorColor = colors.light.primary400;
+t.formErrorColor = colors.light.error400;
 t.formErrorFontFamily = t.bodyFontFamily;
 t.formErrorFontWeight = typography.fontWeightRegular;
 t.formErrorFontSize = typography.fontSize300;

@@ -26,6 +26,12 @@ const StyledNavContainer = styled(Container)`
   justify-content: space-between;
   align-items: center;
 `;
+const StyledDialog = styled(Dialog)`
+  &:focus-visible {
+    outline: none;
+  }
+`;
+
 const StyledHeaderContainer = styled(Container)`
   ${({ theme }) => css`
     display: flex;
@@ -52,7 +58,7 @@ const InnerContainer = styled.div`
 const Nav = () => {
   return (
     <StyledPopover offset={0}>
-      <Dialog>
+      <StyledDialog>
         {({ close }) => (
           <nav>
             <HeaderRow variant="mobile">
@@ -67,7 +73,7 @@ const Nav = () => {
             <NavList variant="mobile" close={close} />
           </nav>
         )}
-      </Dialog>
+      </StyledDialog>
     </StyledPopover>
   );
 };

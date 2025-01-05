@@ -193,7 +193,15 @@ const Cart = () => {
       </CartContainer>
     );
   }
+  if (cartItems.length === 0 && !fetchCartLoading && !fetchCartError) {
+    return (
+      <CartContainer>
+        <CartTable />
 
+        <Message type="info">Shopping cart is empty</Message>
+      </CartContainer>
+    );
+  }
   if (fetchCartError) {
     return (
       <CartContainer>

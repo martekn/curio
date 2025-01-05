@@ -5,6 +5,8 @@ import GlobalStyle from "@/theme/GlobalStyle";
 import styled from "styled-components";
 import { SiteHeader } from "@/components/layout/header/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 const MinHeightContainer = styled.div`
   min-height: 100vh;
@@ -14,6 +16,11 @@ const RootLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
+  const pathname = usePathname();
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, [pathname]);
+
   return (
     <html lang="en">
       <body>

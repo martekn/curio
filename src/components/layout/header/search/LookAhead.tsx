@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { Product } from "@/types";
+import { ListBox, ListBoxItem, Text } from "react-aria-components";
+import { ChevronRight } from "react-feather";
 
 const LookAhead = styled.div`
   ${({ theme }) => css`
@@ -21,8 +23,8 @@ const LookAheadText = styled.div`
     color: ${theme.colors.light.neutral400};
   `}
 `;
-const LookAheadList = styled.ul``;
-const LookAheadListItem = styled.div`
+
+const LookAheadListItem = styled(ListBoxItem)`
   ${({ theme }) => css`
     position: relative;
     display: flex;
@@ -30,8 +32,21 @@ const LookAheadListItem = styled.div`
     gap: ${theme.sizes.size4};
     z-index: 2;
     padding: ${theme.sizes.size3} ${theme.sizes.size7};
+    text-decoration: none;
   `}
 `;
+const SeeAllListItem = styled(LookAheadListItem)`
+  ${({ theme }) => css`
+    font-size: ${theme.typography.fontSize200};
+    font-weight: ${theme.typography.fontWeightMedium};
+    color: ${theme.tokens.bodyTextColor};
+    gap: ${theme.sizes.size2};
+    &:hover {
+      text-decoration: underline;
+    }
+  `}
+`;
+
 const LookAheadListItemImage = styled.img`
   ${({ theme }) => css`
     border-radius: ${theme.tokens.borderRadius};
@@ -41,7 +56,8 @@ const LookAheadListItemImage = styled.img`
     object-fit: cover;
   `}
 `;
-const LookAheadListItemTitle = styled.a`
+
+const LookAheadListItemTitle = styled(Text)`
   ${({ theme }) => css`
     color: ${theme.tokens.colorTextDefault};
     font-family: ${theme.tokens.colorTextDefault};
@@ -84,7 +100,15 @@ const LookAheadListItemTitle = styled.a`
  * @example
  * <LookAheadContainer productsSearchResult={matchingProducts} />
  */
-export const LookAheadContainer = ({ productsSearchResult }: { productsSearchResult: Product[] }) => {
+export const LookAheadContainer = ({
+  productsSearchResult,
+  onItemSelect,
+  searchTerm,
+}: {
+  productsSearchResult: Product[];
+  onItemSelect: () => void;
+  searchTerm: string;
+}) => {
   const [title, setTitle] = useState("Showing top 4 results");
   const [topMatches, setTopMatches] = useState<Product[]>([]);
 
@@ -104,14 +128,23 @@ export const LookAheadContainer = ({ productsSearchResult }: { productsSearchRes
   return (
     <LookAhead>
       <LookAheadText>{title}</LookAheadText>
-      <LookAheadList>
+      <ListBox
+        onAction={() => {
+          onItemSelect();
+        }}
+      >
         {topMatches.map((product) => (
-          <LookAheadListItem key={product.id}>
+          <LookAheadListItem key={product.id} href={`/product/${product.id}`}>
             <LookAheadListItemImage src={product.image.url} alt={product.image.alt} />
-            <LookAheadListItemTitle href={`/product/${product.id}`}>{product.title}</LookAheadListItemTitle>
+            <LookAheadListItemTitle slot="label">{product.title}</LookAheadListItemTitle>
           </LookAheadListItem>
         ))}
-      </LookAheadList>
+        {productsSearchResult && productsSearchResult.length > 4 && (
+          <SeeAllListItem key="seeAll" href={`/products/search/${searchTerm}`}>
+            See all matches <ChevronRight width={"1rem"} />
+          </SeeAllListItem>
+        )}
+      </ListBox>
     </LookAhead>
   );
 };

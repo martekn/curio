@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { Search } from "react-feather";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { debounce } from "@/utils/debounce";
@@ -80,7 +80,7 @@ const updateLookAhead = debounce(
     setShowLookAhead(true);
     setProductsSearchResult(matchingProducts);
   },
-  500
+  150
 );
 
 /**
@@ -93,12 +93,12 @@ const updateLookAhead = debounce(
  * @example
  * <SearchBar />
  */
-export const SearchBar = () => {
+export const SearchBar = ({ ...props }) => {
   const { data, error } = useFetch<ProductsFetch>(API_URL, "get");
   const [productsSearchResult, setProductsSearchResult] = useState<Product[]>([]);
   const [showLookAhead, setShowLookAhead] = useState(false);
-
-  const { register, handleSubmit, watch } = useForm<{ searchInput: string }>();
+  const formRef = useRef<HTMLFormElement>(null);
+  const { register, handleSubmit, watch, reset } = useForm<{ searchInput: string }>();
   const router = useRouter();
   const searchTerm = watch("searchInput");
 
@@ -110,6 +110,47 @@ export const SearchBar = () => {
 
     updateLookAhead(searchTerm, products, setProductsSearchResult, setShowLookAhead);
   }, [searchTerm, data, error]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (formRef.current && !formRef.current.contains(event.target as Node)) {
+        setShowLookAhead(false);
+      }
+    };
+
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setShowLookAhead(false);
+      }
+    };
+
+    const handleFocusOut = (event: FocusEvent) => {
+      if (formRef.current && !formRef.current.contains(event.relatedTarget as Node)) {
+        setShowLookAhead(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscapeKey);
+    document.addEventListener("focusout", handleFocusOut);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscapeKey);
+      document.removeEventListener("focusout", handleFocusOut);
+    };
+  }, []);
+
+  const handleFormFocus = () => {
+    if (searchTerm) {
+      setShowLookAhead(true);
+    }
+  };
+
+  const handleItemSelect = () => {
+    setShowLookAhead(false);
+    reset();
+  };
 
   /**
    * Handles the form submission for the search bar.
@@ -125,17 +166,25 @@ export const SearchBar = () => {
     } else {
       router.push(`/products`);
     }
+    reset();
+    setShowLookAhead(false);
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} ref={formRef} onFocus={handleFormFocus} {...props}>
       <SearchContainer>
         <Input {...register("searchInput")} />
         <Icon>
           <Search />
         </Icon>
       </SearchContainer>
-      {showLookAhead && <LookAheadContainer productsSearchResult={productsSearchResult} />}
+      {showLookAhead && (
+        <LookAheadContainer
+          productsSearchResult={productsSearchResult}
+          onItemSelect={handleItemSelect}
+          searchTerm={searchTerm}
+        />
+      )}
     </Form>
   );
 };

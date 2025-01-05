@@ -24,6 +24,16 @@ const InnerContainer = styled.div`
   `}
 `;
 
+const LeftContainer = styled(InnerContainer)`
+  justify-content: end;
+  flex: 1;
+`;
+
+const StyledSearchBar = styled(SearchBar)`
+  flex: 1;
+  max-width: 20rem;
+`;
+
 /**
  * A component that renders the desktop version of the site header.
  * It includes a logo, a navigation list, a search bar, and a cart icon, all styled for desktop layouts.
@@ -41,10 +51,10 @@ export const DesktopSiteHeader = () => {
               <NavList variant="desktop" />
             </nav>
           </InnerContainer>
-          <InnerContainer>
-            <SearchBar />
+          <LeftContainer>
+            <StyledSearchBar />
             <CartIcon />
-          </InnerContainer>
+          </LeftContainer>
         </StyledContainer>
       </HeaderRow>
     </header>

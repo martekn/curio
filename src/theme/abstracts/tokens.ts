@@ -174,6 +174,9 @@ t.formInputBorderFocus = `1px solid ${colors.light.neutral900}`;
 t.formInputOutlineFocus = t.formInputBorderFocus;
 t.formInputPadding = sizes.size3;
 t.formInputBorderRadius = t.borderRadius;
+t.formInputColorDisabled = t.bodyTextColorSecondary;
+t.formInputBackgroundColorDisabled = colors.light.neutral200;
+t.formInputBorderDisabled = `1px solid ${colors.light.neutral300}`;
 
 t.formTextareaMinHeight = "9rem";
 t.formTextareaResize = "vertical";

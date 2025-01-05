@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/Button";
 import styled, { css } from "styled-components";
 import { Message } from "@/components/Message";
+import { useState } from "react";
 
 type ContactSchemaType = z.infer<typeof ContactSchema>;
 
@@ -34,13 +35,16 @@ export const ContactForm = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isSubmitSuccessful },
   } = useForm<ContactSchemaType>({ resolver: zodResolver(ContactSchema) });
 
-  const onSubmit: SubmitHandler<ContactSchemaType> = (data) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit: SubmitHandler<ContactSchemaType> = async (data) => {
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 250));
     console.log("Contact form validation criteria met:", data);
-    reset();
+    setIsLoading(false);
   };
 
   return (
@@ -57,17 +61,33 @@ export const ContactForm = () => {
           name="fullName"
           type="text"
           error={errors.fullName?.message}
+          disabled={isSubmitSuccessful}
         />
-        <InputGroup label="Email" register={register} name="email" type="text" error={errors.email?.message} />
-        <InputGroup label="Subject" register={register} name="subject" type="text" error={errors.subject?.message} />
+        <InputGroup
+          label="Email"
+          register={register}
+          name="email"
+          type="text"
+          error={errors.email?.message}
+          disabled={isSubmitSuccessful}
+        />
+        <InputGroup
+          label="Subject"
+          register={register}
+          name="subject"
+          type="text"
+          error={errors.subject?.message}
+          disabled={isSubmitSuccessful}
+        />
         <InputGroup
           label="Message"
           register={register}
           name="message"
           type="textarea"
           error={errors.message?.message}
+          disabled={isSubmitSuccessful}
         />
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" isLoading={isLoading} isSuccess={isSubmitSuccessful}>
           Send message
         </Button>
       </Form>

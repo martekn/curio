@@ -24,6 +24,12 @@ const Input = styled.input`
       outline: ${theme.tokens.formInputOutlineFocus};
       border: ${theme.tokens.formInputBorderFocus};
     }
+
+    &:disabled {
+      color: ${theme.tokens.formInputColorDisabled};
+      background-color: ${theme.tokens.formInputBackgroundColorDisabled};
+      border: ${theme.tokens.formInputBorderDisabled};
+    }
   `}
 `;
 
@@ -59,6 +65,7 @@ interface InputProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   type?: "textarea" | "text" | "email";
   placeholder?: string;
+  disabled?: boolean;
 }
 
 /**
@@ -98,12 +105,13 @@ export const InputGroup = <T extends FieldValues>({
   type = "text",
   placeholder = "",
   error,
+  disabled = false,
 }: InputProps<T>) => {
   let input;
   if (type === "textarea") {
-    input = <Textarea as="textarea" {...register(name)} placeholder={placeholder} />;
+    input = <Textarea as="textarea" disabled={disabled} {...register(name)} placeholder={placeholder} />;
   } else {
-    input = <Input type={type} {...register(name)} placeholder={placeholder} />;
+    input = <Input type={type} disabled={disabled} {...register(name)} placeholder={placeholder} />;
   }
   return (
     <div>

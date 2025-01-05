@@ -169,6 +169,9 @@ export interface Tokens {
   formInputOutlineFocus?: string;
   formInputPadding?: string;
   formInputBorderRadius?: string;
+  formInputColorDisabled?: string;
+  formInputBackgroundColorDisabled?: string;
+  formInputBorderDisabled?: string;
 
   formTextareaMinHeight?: string;
   formTextareaResize?: string;

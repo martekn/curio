@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/Button";
 import { Heading } from "@/components/Heading";
 import { StatusPageContainer } from "@/components/StatusPageContainer";
 
@@ -19,6 +20,9 @@ const CheckoutSuccess = () => {
         Your order has been successfully processed, and we&apos;ll begin preparing it for shipping right away.
         We&apos;re excited to get your items to you as soon as possible.
       </p>
+      <Button variant="primary" href="/">
+        Continue shopping
+      </Button>
     </StatusPageContainer>
   );
 };

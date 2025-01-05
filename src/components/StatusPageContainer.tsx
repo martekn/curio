@@ -12,7 +12,8 @@ import { Container } from "./Container";
 export const StatusPageContainer = styled(Container).attrs({ as: "main" })`
   ${({ theme }) => css`
     margin-top: ${theme.sizes.size14};
-    display: grid;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;

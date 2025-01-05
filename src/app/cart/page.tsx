@@ -6,10 +6,11 @@ import {
   fetchCartLoadingAtom,
   totalDiscountedPriceAtom,
   totalPriceAtom,
+  clearCartAtom,
 } from "@/atoms/cartAtom";
 import { Button } from "@/components/Button";
-import { useAtom, useAtomValue } from "jotai";
-import { useEffect } from "react";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useEffect, useState } from "react";
 import { CartItem } from "./components/CartItem";
 import { Container } from "@/components/Container";
 import styled, { css } from "styled-components";
@@ -18,6 +19,7 @@ import { Heading } from "@/components/Heading";
 import mixins from "@/theme/abstracts/mixins";
 import { Message } from "@/components/Message";
 import Spinner from "@/components/Spinner";
+import { useRouter } from "next/navigation";
 
 const OldPrice = styled.s`
   ${({ theme }) => css`
@@ -153,6 +155,18 @@ const Cart = () => {
   const totalPrice = useAtomValue(totalPriceAtom);
   const [fetchCartError] = useAtom(fetchCartErrorAtom);
   const [, fetchCart] = useAtom(fetchCartItemsAtom);
+  const [cartLoading, setCartLoading] = useState(false);
+  const checkout = useSetAtom(clearCartAtom);
+  const router = useRouter();
+
+  const handleCheckout = async () => {
+    setCartLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    checkout();
+    setCartLoading(false);
+    router.push("/checkout/success");
+  };
+
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);
@@ -172,7 +186,7 @@ const Cart = () => {
               <div> {totalDiscountedPrice}</div>
             </Price>
           </PriceContainer>
-          <CheckoutButton variant="primary" href="/checkout/success">
+          <CheckoutButton variant="primary" onClick={handleCheckout} isLoading={cartLoading}>
             Go to checkout
           </CheckoutButton>
         </Checkout>

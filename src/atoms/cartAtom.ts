@@ -171,3 +171,10 @@ export const decreaseProductQuantityAtom = atom(null, (get, set, id: Product["id
 
   set(cartAtom, updatedCart);
 });
+
+/**
+ * An atom that clears the cart by setting it to an empty array.
+ */
+export const clearCartAtom = atom(null, (get, set) => {
+  set(cartAtom, []);
+});

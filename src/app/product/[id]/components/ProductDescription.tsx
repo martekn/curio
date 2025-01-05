@@ -2,14 +2,12 @@ import { Heading } from "@/components/Heading";
 import { getDiscount } from "@/utils/getDiscount";
 import { Rating } from "./Rating";
 import { Product, Product as TProduct } from "@/types";
-import { addToCartAtom } from "@/atoms/cartAtom";
-import { Button } from "@/components/Button";
-import { useSetAtom } from "jotai";
 import styled, { css } from "styled-components";
 import mixins from "@/theme/abstracts/mixins";
 import Link from "next/link";
 import { VisuallyHidden } from "react-aria";
 import { useCallback } from "react";
+import { AddToCartButton } from "./AddToCartButton";
 
 const DescriptionSection = styled.div`
   ${({ theme }) => css`
@@ -161,8 +159,6 @@ const RatingLink = ({ rating, targetId }: RatingLinkProps) => {
  * @returns The JSX element for the product description or `undefined` if no product is provided.
  */
 export const ProductDescription = ({ product }: { product: TProduct | undefined }) => {
-  const addToCart = useSetAtom(addToCartAtom);
-
   if (!product) {
     return;
   }
@@ -188,9 +184,7 @@ export const ProductDescription = ({ product }: { product: TProduct | undefined 
         <p>{description}</p>
       </DescriptionSection>
       <DescriptionSection>
-        <Button variant="primary" onClick={() => addToCart(product)}>
-          Add to cart
-        </Button>
+        <AddToCartButton product={product} />
       </DescriptionSection>
     </div>
   );

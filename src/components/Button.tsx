@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { css, styled } from "styled-components";
 import Spinner from "./Spinner";
+import { Check } from "react-feather";
 
 type ButtonVariant = "primary" | "secondary";
 
-const StyledButton = styled.button<{ $variant: ButtonVariant; $isLoading: boolean }>`
-  ${({ theme, $variant, $isLoading }) => css`
+const StyledButton = styled.button<{ $variant: ButtonVariant; $isLoading: boolean; $isSuccess: boolean }>`
+  ${({ theme, $variant, $isLoading, $isSuccess }) => css`
     position: relative;
     text-align: center;
     font-family: ${theme.tokens.buttonFontFamily};
@@ -19,7 +20,7 @@ const StyledButton = styled.button<{ $variant: ButtonVariant; $isLoading: boolea
     text-align: center;
     text-decoration: none;
 
-    ${$isLoading &&
+    ${($isLoading || $isSuccess) &&
     css`
       > span {
         visibility: hidden;
@@ -53,8 +54,7 @@ const StyledButton = styled.button<{ $variant: ButtonVariant; $isLoading: boolea
         `}
   `}
 `;
-
-const StyledSpinner = styled(Spinner)`
+const IconContainer = styled.div`
   position: absolute;
   inset: 0;
   display: flex;
@@ -68,6 +68,7 @@ interface Props {
   href?: string;
   onClick?: () => void;
   isLoading?: boolean;
+  isSuccess?: boolean;
   type?: "button" | "submit" | "reset";
 }
 
@@ -86,22 +87,52 @@ interface Props {
  * @param href - The URL to navigate to if the button is rendered as a link.
  * @param onClick - The function to execute when the button is clicked.
  * @param [isLoading=false] - If `true`, displays a loading spinner
+ * @param [isSuccess=false] - If `true`, displays a checkmark
  *
  * @returns A styled button component, either a `<button>` or a `<Link>` based on the presence of `href`.
  */
-export const Button = ({ variant, children, href, onClick, isLoading: isLoading = false, ...props }: Props) => {
+export const Button = ({ variant, children, href, onClick, isLoading = false, isSuccess = false, ...props }: Props) => {
   if (href) {
     return (
-      <StyledButton as={Link} href={href} $variant={variant} $isLoading={isLoading} {...props}>
-        {isLoading && <StyledSpinner size="1rem" />}
+      <StyledButton as={Link} href={href} $variant={variant} $isLoading={isLoading} $isSuccess={isSuccess} {...props}>
+        {isLoading && (
+          <IconContainer>
+            <Spinner size="1rem" />
+          </IconContainer>
+        )}
+
+        {isSuccess && (
+          <IconContainer>
+            <Check />
+          </IconContainer>
+        )}
+
         <span>{children}</span>
       </StyledButton>
     );
   }
 
   return (
-    <StyledButton onClick={onClick} $variant={variant} $isLoading={isLoading} {...props}>
-      {isLoading && <StyledSpinner size="1rem" />}
+    <StyledButton
+      onClick={onClick}
+      $variant={variant}
+      $isLoading={isLoading}
+      disabled={isLoading || isSuccess}
+      $isSuccess={isSuccess}
+      {...props}
+    >
+      {isLoading && (
+        <IconContainer>
+          <Spinner size="1rem" />
+        </IconContainer>
+      )}
+
+      {isSuccess && (
+        <IconContainer>
+          <Check />
+        </IconContainer>
+      )}
+
       <span>{children}</span>
     </StyledButton>
   );

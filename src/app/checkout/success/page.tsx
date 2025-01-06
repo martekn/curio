@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@/components/Button";
-import { Heading } from "@/components/Heading";
-import { StatusPageContainer } from "@/components/StatusPageContainer";
+import { Button } from "@/components/common/Button";
+import { Heading } from "@/components/common/Heading";
+import { StatusPageContainer } from "@/components/status/StatusPageContainer";
 
 /**
  * The checkout success page.

@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import styled, { css } from "styled-components";
-import { Container } from "@/components/Container";
+import { Container } from "@/components/common/Container";
 import { useFetch } from "@/hooks/useFetch";
 import { Product as TProduct, ProductFetch } from "@/types";
 import { API_URL } from "@/constants";
@@ -10,8 +10,8 @@ import { useEffect, useState } from "react";
 import { ProductReviews } from "./components/ProductReviews";
 import { ProductDescription } from "./components/ProductDescription";
 import { ProductDisplay } from "./components/ProductDisplay";
-import { Message } from "@/components/Message";
-import Spinner from "@/components/Spinner";
+import { Message } from "@/components/status/Message";
+import { Spinner } from "@/components/status/Spinner";
 
 const DisplayWrapper = styled.div`
   grid-area: display;

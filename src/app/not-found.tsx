@@ -1,8 +1,8 @@
 "use client";
 
-import { Heading } from "@/components/Heading";
-import { StatusPageContainer } from "@/components/StatusPageContainer";
-import { StyledLink } from "@/components/StyledLink";
+import { Heading } from "@/components/common/Heading";
+import { BaseLink } from "@/components/common/BaseLink";
+import { StatusPageContainer } from "@/components/status/StatusPageContainer";
 
 /**
  * The contact page.
@@ -27,7 +27,7 @@ const NotFoundPage = () => {
           We&apos;re sorry, but the page you&apos;re looking for doesn&apos;t exist or has been moved. It seems like
           you&apos;ve taken a wrong turn somewhere.
         </p>
-        <StyledLink href="/">Return to home</StyledLink>
+        <BaseLink href="/">Return to home</BaseLink>
       </StatusPageContainer>
     </>
   );

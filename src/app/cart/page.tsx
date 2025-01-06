@@ -8,17 +8,17 @@ import {
   totalPriceAtom,
   clearCartAtom,
 } from "@/atoms/cartAtom";
-import { Button } from "@/components/Button";
+import { Button } from "@/components/common/Button";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { CartItem } from "./components/CartItem";
-import { Container } from "@/components/Container";
+import { Container } from "@/components/common/Container";
 import styled, { css } from "styled-components";
 import { CartTableRow } from "./components/CartTableRow";
-import { Heading } from "@/components/Heading";
+import { Heading } from "@/components/common/Heading";
 import mixins from "@/theme/abstracts/mixins";
-import { Message } from "@/components/Message";
-import Spinner from "@/components/Spinner";
+import { Message } from "@/components/status/Message";
+import { Spinner } from "@/components/status/Spinner";
 import { useRouter } from "next/navigation";
 
 const OldPrice = styled.s`

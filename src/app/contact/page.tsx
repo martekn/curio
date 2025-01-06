@@ -1,8 +1,8 @@
 "use client";
 
-import { Container } from "@/components/Container";
+import { Container } from "@/components/common/Container";
 import { ContactForm } from "./components/ContactForm";
-import { Heading } from "@/components/Heading";
+import { Heading } from "@/components/common/Heading";
 import styled, { css } from "styled-components";
 import mixins from "@/theme/abstracts/mixins";
 

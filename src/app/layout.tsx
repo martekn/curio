@@ -3,7 +3,7 @@ import StyledComponentsRegistry from "@/app/registry";
 import { ClientProviders } from "./providers";
 import GlobalStyle from "@/theme/GlobalStyle";
 import styled from "styled-components";
-import { SiteHeader } from "@/components/layout/header/SiteHeader";
+import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";

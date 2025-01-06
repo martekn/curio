@@ -1,10 +1,10 @@
 "use client";
 
-import { ProductGrid } from "@/components/ProductGrid";
+import { ProductGrid } from "@/components/product/ProductGrid";
 import { Hero } from "./components/Hero";
-import { Heading } from "@/components/Heading";
-import { Container } from "@/components/Container";
-import { Section } from "@/components/Section";
+import { Heading } from "@/components/common/Heading";
+import { Container } from "@/components/common/Container";
+import { Section } from "@/components/common/Section";
 import styled, { css } from "styled-components";
 import mixins from "@/theme/abstracts/mixins";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { ProductsFetch } from "@/types";
 import { API_URL, HERO_PRODUCT_ID } from "@/constants";
 import { VisuallyHidden } from "react-aria";
-import { Message } from "@/components/Message";
+import { Message } from "@/components/status/Message";
 
 const StyledSection = styled(Section)`
   ${({ theme }) => css`
@@ -75,7 +75,9 @@ const Home = () => {
   return (
     <main>
       <VisuallyHidden>
-        <Heading headingLevel="h1">Curio - Products to explore</Heading>
+        <Heading headingLevel="h1" headingStyle="HEADING_1">
+          Curio - Products to explore
+        </Heading>
       </VisuallyHidden>
       <Hero product={featuredProduct} />
       <Container>

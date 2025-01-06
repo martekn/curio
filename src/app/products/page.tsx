@@ -1,8 +1,8 @@
 "use client";
 
-import { Container } from "@/components/Container";
-import { Heading } from "@/components/Heading";
-import { ProductGrid } from "@/components/ProductGrid";
+import { Container } from "@/components/common/Container";
+import { Heading } from "@/components/common/Heading";
+import { ProductGrid } from "@/components/product/ProductGrid";
 import { API_URL } from "@/constants";
 import { useFetch } from "@/hooks/useFetch";
 import mixins from "@/theme/abstracts/mixins";

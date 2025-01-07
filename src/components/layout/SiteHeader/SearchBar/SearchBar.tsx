@@ -8,6 +8,7 @@ import { LookAhead } from "./LookAhead";
 import { Product, ProductsFetch, SetState } from "@/types";
 import { API_URL } from "@/constants";
 import { StyledForm, StyledButton, StyledInput, StyledWrapper } from "./SearchBar.styles";
+import { VisuallyHidden } from "react-aria";
 
 /**
  * Updates the look-ahead search results based on the user's input.
@@ -50,7 +51,7 @@ const updateLookAhead = debounce(
  * @example
  * <SearchBar />
  */
-export const SearchBar = ({ ...props }) => {
+export const SearchBar = () => {
   const { data, error } = useFetch<ProductsFetch>(API_URL, "get");
   const [productsSearchResult, setProductsSearchResult] = useState<Product[]>([]);
   const [showLookAhead, setShowLookAhead] = useState(false);
@@ -128,9 +129,12 @@ export const SearchBar = ({ ...props }) => {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)} ref={formRef} onFocus={handleFormFocus} {...props}>
+    <StyledForm ref={formRef} onSubmit={handleSubmit(onSubmit)} onFocus={handleFormFocus}>
       <StyledWrapper>
-        <StyledInput {...register("searchInput")} />
+        <VisuallyHidden>
+          <label htmlFor="searchInput">Search</label>
+        </VisuallyHidden>
+        <StyledInput id="searchInput" {...register("searchInput")} />
         <StyledButton>
           <Search />
         </StyledButton>

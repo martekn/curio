@@ -52,20 +52,21 @@ export const LookAhead = ({
 
   return (
     <StyledWrapper>
-      <StyledHeading>{title}</StyledHeading>
+      <StyledHeading id="listbox-label">{title}</StyledHeading>
       <ListBox
+        aria-labelledby="listbox-label"
         onAction={() => {
           onItemSelect();
         }}
       >
         {topMatches.map((product) => (
-          <StyledListBoxItem key={product.id} href={`/product/${product.id}`}>
+          <StyledListBoxItem key={product.id} href={`/product/${product.id}`} textValue={product.title}>
             <StyledProductImage src={product.image.url} alt={product.image.alt} />
             <StyledProductTitle slot="label">{product.title}</StyledProductTitle>
           </StyledListBoxItem>
         ))}
         {productsSearchResult && productsSearchResult.length > 4 && (
-          <StyledAllListBoxItem key="seeAll" href={`/products/search/${searchTerm}`}>
+          <StyledAllListBoxItem key="seeAll" href={`/products/search/${searchTerm}`} textValue="See all matches">
             See all matches <ChevronRight width={"1rem"} />
           </StyledAllListBoxItem>
         )}

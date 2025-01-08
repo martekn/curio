@@ -88,10 +88,12 @@ export const StyledTitleLink = styled(Link)`
     color: ${theme.tokens.cardHeadingColorDefault};
     font-family: ${theme.tokens.cardHeadingFontFamily};
     font-size: ${theme.tokens.cardHeadingFontSize};
-    text-decoration: underline transparent;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
     text-underline-offset: 2px;
-    transition: text-decoration 200ms ease-in-out;
-    ${mixins.ellipseText()}
+    transition: text-decoration-color 200ms ease-in-out;
+    ${mixins.ellipseText()};
+
     &:hover {
       text-decoration-color: ${theme.tokens.cardHeadingColorDefault};
     }

@@ -1,4 +1,6 @@
 # Curio
+![Screenshot 2025-05-24 at 17-37-28 Curio - Unique and Trendy Products](https://github.com/user-attachments/assets/861bb6b7-cf6c-4c59-8914-7821b20694bd)
+
 
 Curio is a simple eCommerce site I created as part of a React assignment. The goal was to showcase products and implement key eCommerce features like a cart system, checkout process, and a contact form.
 

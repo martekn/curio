@@ -27,7 +27,7 @@ Curio is a simple eCommerce site I created as part of a React assignment. The go
 1. Clone the repo:
 
 ```bash
-git clone git@github.com:martekn/curio.git
+git clone https://github.com/martekn/curio.git
 ```
 
 2. Install the dependencies:
